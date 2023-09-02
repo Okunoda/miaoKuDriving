@@ -1,0 +1,45 @@
+@import url('../../style.less');
+
+page {
+  background-color: @bgc-1;
+  font-family: @ff-1;
+}
+
+.summary-container {
+  background-color: #fff;
+  padding: 40 rpx;
+  display: flex;
+  margin-bottom: 25 rpx;
+
+  .photo {
+  }
+
+  .summary {
+    margin-left: 25 rpx;
+    flex-grow: 1;
+
+    .name {
+      font-size: 40 rpx;
+      color: @fc-2;
+      font-weight: bold;
+      margin-bottom: 10 rpx;
+    }
+
+    .level {
+      background-color: @bgc-12;
+      display: inline-block;
+      padding: 8 rpx 20 rpx 5 rpx 10 rpx;
+      border-radius: 100 rpx;
+
+      .icon {
+        vertical-align: -5 rpx;
+      }
+
+      text {
+        font-size: 26 rpx;
+        margin-left: 10 rpx;
+        color: @fc-2;
+      }
+    }
+  }
+}

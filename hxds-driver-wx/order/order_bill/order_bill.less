@@ -1,0 +1,126 @@
+@import url('../../style.less');
+
+page {
+  font-family: @ff-1;
+  padding-bottom: 100 rpx;
+}
+
+.setion-title {
+  background-color: @bgc-1;
+  padding: 25 rpx 30 rpx;
+  display: flex;
+
+  image {
+    width: 32 rpx;
+    height: auto;
+    margin-top: 9 rpx;
+    margin-right: 12 rpx;
+  }
+
+  text {
+    font-size: 32 rpx;
+    font-weight: bold;
+    color: @fc-2;
+  }
+}
+
+.section-content {
+  padding: 20 rpx 20 rpx;
+
+  .item {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: solid 1 rpx @bc-1;
+    padding: 25 rpx 20 rpx 25 rpx 20 rpx;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .left {
+      border-left: solid 7 rpx @bc-8;
+      padding-left: 20 rpx;
+
+      .item-title {
+        display: block;
+        font-size: 28 rpx;
+        color: @fc-2;
+        margin-bottom: 15 rpx;
+      }
+
+      .item-desc {
+        display: block;
+        font-size: 26 rpx;
+        color: @fc-16;
+      }
+    }
+
+    .right {
+      color: @fc-2;
+      font-size: 28 rpx;
+    }
+  }
+
+  .content-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 25 rpx 20 rpx;
+
+    .content {
+      display: block;
+      font-size: 28 rpx;
+      color: @fc-2;
+      margin-bottom: 30 rpx;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      text {
+        color: @fc-2;
+        font-weight: bold;
+        margin-right: 3 rpx;
+      }
+
+      .red {
+        color: @fc-19;
+      }
+    }
+
+    .big {
+      font-size: 32 rpx;
+    }
+
+    .img {
+      width: 150 rpx;
+      height: auto;
+    }
+  }
+}
+
+.contact-container {
+  background-color: @bgc-1;
+  padding: 45 rpx 50 rpx 45 rpx 50 rpx;
+  text-align: center;
+  font-size: 26 rpx;
+  color: @fc-13;
+
+  .contact {
+    margin-bottom: 20 rpx;
+  }
+}
+
+.btn {
+  background-color: @btnc-1;
+  color: #fff;
+  width: 87%;
+  margin-top: 30 rpx;
+
+  &::after {
+    border: none;
+  }
+
+  &:active {
+    background-color: @btnac-1;
+  }
+}

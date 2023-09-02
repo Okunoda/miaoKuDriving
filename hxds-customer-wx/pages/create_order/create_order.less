@@ -1,0 +1,110 @@
+@import url('../../style.less');
+
+page {
+  font-family: @ff-1;
+}
+
+.address-container {
+  height: 85px;
+  font-size: 28 rpx;
+  color: @fc-2;
+  line-height: 1.6;
+  box-sizing: border-box;
+  padding: 25 rpx 30 rpx 25 rpx 30 rpx;
+  width: 750 rpx;
+  background-color: rgba(255, 255, 255, 0.93);
+  position: absolute;
+  top: 0;
+  z-index: 1000;
+
+  .from {
+    display: flex;
+
+    &::before {
+      display: block;
+      content: '';
+      width: 20 rpx;
+      height: 20 rpx;
+      border-radius: 10 rpx;
+      background-color: @bgc-7;
+      margin-top: 14 rpx;
+      margin-right: 17 rpx;
+    }
+  }
+
+  .dashed-line {
+    height: 25 rpx;
+    border-left: @bc-5 2 rpx dashed;
+    // background-color: red;
+    margin-top: 5 rpx;
+    margin-bottom: 5 rpx;
+    margin-left: 10 rpx;
+  }
+
+  .to {
+    display: flex;
+
+    &::before {
+      display: block;
+      content: '';
+      width: 20 rpx;
+      height: 20 rpx;
+      border-radius: 10 rpx;
+      background-color: @bgc-8;
+      margin-top: 14 rpx;
+      margin-right: 17 rpx;
+    }
+  }
+}
+
+.map {
+  width: 100%;
+}
+
+.panel {
+  box-sizing: border-box;
+  padding: 35 rpx 30 rpx 35 rpx 30 rpx;
+  width: 750 rpx;
+  background-color: rgba(255, 255, 255, 0.93);
+  position: absolute;
+  bottom: 80 rpx;
+  z-index: 1000;
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+
+    .info {
+      display: flex;
+      font-size: 30 rpx;
+
+      .value {
+        text {
+          color: @fc-10;
+          padding: 0 10 rpx;
+          font-weight: bold;
+        }
+      }
+    }
+
+    .opt {
+      font-size: 30 rpx;
+      color: @fc-4;
+    }
+  }
+
+  .btn {
+    background-color: @btnc-1;
+    color: #fff;
+    // width: 70%;
+    margin-top: 30 rpx;
+
+    &::after {
+      border: none;
+    }
+
+    &:active {
+      background-color: @btnac-1;
+    }
+  }
+}

@@ -1,0 +1,252 @@
+@import url('../../style.less');
+
+page {
+  background-color: @bgc-1;
+  font-family: @ff-1;
+}
+
+.page {
+  padding-bottom: 0 rpx;
+}
+
+.summary-container {
+  background-color: @bgc-2;
+  display: flex;
+  padding: 40 rpx 40 rpx;
+
+  .photo {
+    width: 120 rpx;
+    border-radius: 60 rpx;
+  }
+
+  .summary {
+    margin-left: 30 rpx;
+    flex-grow: 1;
+
+    .row {
+      display: flex;
+      padding-top: 10 rpx;
+
+      .name {
+        font-size: 40 rpx;
+        color: @fc-5;
+        font-weight: bold;
+      }
+
+      .auth-icon {
+        width: 36 rpx;
+        margin-top: 13 rpx;
+        margin-left: 30 rpx;
+      }
+
+      .auth {
+        color: @fc-6;
+        font-size: 28 rpx;
+        margin-top: 12 rpx;
+        margin-left: 15 rpx;
+      }
+
+      .unauth {
+        .auth;
+        color: @fc-7;
+      }
+
+      .attribute {
+        color: @fc-5;
+        font-size: 26 rpx;
+        width: 100%;
+        display: flex;
+        margin-top: 5 rpx;
+
+        .item {
+          line-height: 1;
+
+          &:first-of-type {
+            padding-right: 28 rpx;
+            border-right: solid 1 rpx @bc-1;
+          }
+
+          &:nth-of-type(2) {
+            padding-left: 28 rpx;
+            padding-right: 28 rpx;
+            border-right: solid 1 rpx @bc-1;
+          }
+
+          &:nth-of-type(3) {
+            padding-left: 28 rpx;
+          }
+        }
+      }
+    }
+  }
+}
+
+.notice-container {
+  background-color: @bgc-3;
+  padding: 30 rpx 40 rpx;
+
+  .notice-title {
+    display: flex;
+
+    image {
+      width: 36 rpx;
+      margin-top: 8 rpx;
+    }
+
+    text {
+      color: @fc-5;
+      font-size: 32 rpx;
+      margin-left: 10 rpx;
+      font-weight: bold;
+    }
+  }
+
+  .desc {
+    color: @fc-5;
+    font-size: 26 rpx;
+    margin-top: 10 rpx;
+    line-height: 1.6;
+  }
+}
+
+.nav-container {
+  background-color: #fff;
+  padding: 0 40 rpx;
+
+  .row {
+    display: flex;
+    padding: 40 rpx 0;
+
+    &:first-of-type {
+      // border-bottom: solid 2rpx #e0e0e0;
+    }
+
+    .item {
+      display: flex;
+      width: 334 rpx;
+
+      &:last-child {
+        padding-left: 40 rpx;
+      }
+
+      image {
+        width: 48 rpx;
+        margin-top: 4 rpx;
+      }
+
+      .info {
+        margin-left: 20 rpx;
+
+        .title {
+          display: block;
+          font-size: 36 rpx;
+        }
+
+        .desc {
+          display: block;
+          margin-top: 10 rpx;
+          font-size: 28 rpx;
+          color: @fc-3;
+        }
+      }
+    }
+
+    .border-column {
+      width: 0;
+      border-left: solid 2 rpx @bc-2;
+    }
+  }
+
+  .border-row {
+    // padding: 0 40rpx;
+    display: flex;
+    justify-content: space-between;
+
+    &::before {
+      content: '';
+      display: block;
+      height: 0;
+      border-bottom: solid 2 rpx @bc-2;
+      width: 300 rpx;
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      height: 0;
+      border-bottom: solid 2 rpx @bc-2;
+      width: 300 rpx;
+    }
+  }
+}
+
+.tab-container {
+  display: flex;
+  margin: 20 rpx 0;
+  padding: 40 rpx;
+  background-color: #fff;
+  justify-content: space-between;
+
+  .item {
+    .ball {
+      width: 90 rpx;
+      height: 90 rpx;
+      border-radius: 44 rpx;
+      background-color: @bc-3;
+      background-size: 44 rpx;
+      background-repeat: no-repeat;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .ball-1 {
+      background-image: url(../../static/mine/icon-8.png);
+      background-position: 26 rpx 24 rpx;
+      background-size: 40 rpx;
+    }
+
+    .ball-2 {
+      background-image: url(../../static/mine/icon-9.png);
+      background-position: 24 rpx 22 rpx;
+    }
+
+    .ball-3 {
+      background-image: url(../../static/mine/icon-10.png);
+      background-position: 24 rpx 22 rpx;
+    }
+
+    .ball-4 {
+      background-image: url(../../static/mine/icon-11.png);
+      background-position: 24 rpx 22 rpx;
+    }
+
+    text {
+      font-size: 28 rpx;
+      color: @fc-2;
+      display: block;
+      text-align: center;
+      margin-top: 20 rpx;
+    }
+  }
+}
+
+.exit {
+  margin-top: 20 rpx;
+  background-color: #fff;
+  padding-bottom: 50 rpx;
+
+  .btn {
+    background-color: @btnc-1;
+    color: #fff;
+    border-radius: 0;
+    padding: 8 rpx;
+
+    &::after {
+      border: none;
+    }
+
+    &:active {
+      background-color: @btnac-1;
+    }
+  }
+}

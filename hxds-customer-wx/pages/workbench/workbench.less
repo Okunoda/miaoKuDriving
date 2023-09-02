@@ -1,0 +1,70 @@
+@import url('../../style.less');
+
+page {
+  font-family: @ff-1;
+}
+
+.map {
+  width: 100%;
+}
+
+.location {
+  width: 50 rpx;
+  height: 50 rpx;
+  position: absolute;
+  right: 45 rpx;
+  bottom: 300 rpx;
+}
+
+.panel {
+  width: 700 rpx;
+  margin-left: 25 rpx;
+  margin-right: 25 rpx;
+  background-color: #fff;
+  height: 115px;
+  position: absolute;
+  bottom: 25 rpx;
+  border-radius: 15 rpx;
+  font-size: 28 rpx;
+  color: @fc-2;
+  line-height: 1.6;
+  box-sizing: border-box;
+  padding: 30 rpx 0 rpx;
+
+  .from {
+    display: flex;
+    margin: 0 45 rpx 25 rpx 45 rpx;
+
+    &::before {
+      display: block;
+      content: '';
+      width: 20 rpx;
+      height: 20 rpx;
+      border-radius: 10 rpx;
+      background-color: @bgc-7;
+      margin-top: 14 rpx;
+      margin-right: 17 rpx;
+    }
+  }
+
+  .to {
+    display: flex;
+    background-color: @bgc-11;
+    padding: 20 rpx 25 rpx;
+    border-radius: 10 rpx;
+    font-weight: bold;
+    font-size: 36 rpx;
+    margin: 0 20 rpx;
+
+    &::before {
+      display: block;
+      content: '';
+      width: 20 rpx;
+      height: 20 rpx;
+      border-radius: 10 rpx;
+      background-color: @bgc-8;
+      margin-top: 14 rpx;
+      margin-right: 17 rpx;
+    }
+  }
+}

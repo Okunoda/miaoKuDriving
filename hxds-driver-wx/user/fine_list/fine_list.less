@@ -1,0 +1,151 @@
+@import url('../../style.less');
+
+page {
+  font-family: @ff-1;
+  background-color: @bc-9;
+}
+
+.tab-container {
+  height: 62px;
+  box-sizing: border-box;
+  padding-top: 8px;
+  background-color: white;
+  margin-bottom: 10px;
+}
+
+.fine-container {
+  background-color: white;
+  padding: 30 rpx 30 rpx;
+  margin-bottom: 10px;
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: solid 1 rpx @bc-1;
+    padding-bottom: 25 rpx;
+    padding-left: 10 rpx;
+    padding-right: 10 rpx;
+
+    .fine-id {
+      color: @fc-3;
+      font-size: 30 rpx;
+    }
+
+    .fine-status {
+      font-size: 30 rpx;
+    }
+
+    .green {
+      color: @fc-12;
+    }
+
+    .red {
+      color: @fc-10;
+    }
+  }
+
+  .summary {
+    padding-top: 30 rpx;
+    padding-bottom: 30 rpx;
+    padding-left: 10 rpx;
+    padding-right: 10 rpx;
+    display: flex;
+    border-bottom: solid 1 rpx @bc-1;
+
+    .letter {
+      width: 90 rpx;
+      height: 90 rpx;
+      border-radius: 10 rpx;
+      text-align: center;
+      font-size: 46 rpx;
+      color: white;
+      font-weight: bold;
+      line-height: 90 rpx;
+      margin-right: 25 rpx;
+    }
+
+    .gray {
+      background-color: @bgc-3;
+    }
+
+    .orange {
+      background-color: @bgc-9;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+
+      .remark {
+        font-size: 32 rpx;
+        color: @fc-1;
+        line-height: 1;
+        // font-weight: bold;
+      }
+
+      .date {
+        font-size: 28 rpx;
+        color: @fc-3;
+        line-height: 1;
+      }
+    }
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 30 rpx;
+    padding-left: 10 rpx;
+    padding-right: 10 rpx;
+
+    .amount {
+      font-size: 34 rpx;
+      margin-top: 10 rpx;
+      color: @fc-2;
+      display: flex;
+
+      image {
+        width: 40 rpx;
+        margin-right: 10 rpx;
+        margin-top: 7 rpx;
+      }
+
+      text {
+        color: @fc-10;
+      }
+    }
+
+    .pay-btn {
+      font-size: 30 rpx;
+      background-color: @btnc-5;
+      border: none;
+      border-radius: 10 rpx;
+      color: white;
+      line-height: 2.3;
+      margin: 0;
+
+      &::after {
+        border: none;
+      }
+
+      &:active {
+        background-color: @btnac-5;
+      }
+    }
+  }
+}
+
+.money {
+  position: relative;
+  font-size: 70 rpx;
+  color: @fc-10;
+  font-weight: bold;
+
+  .close {
+    position: absolute;
+    right: 30 rpx;
+    top: 0 rpx;
+  }
+
+}

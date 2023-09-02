@@ -1,0 +1,70 @@
+@import url("../../style.less");
+
+page {
+  font-family: @ff-1;
+}
+
+.top {
+  width: 100%;
+  display: block;
+}
+
+.logo {
+  display: block;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50 rpx;
+}
+
+.desc {
+  text-align: center;
+  color: @fc-2;
+  margin-top: 20 rpx;
+
+  .name {
+    font-size: 38 rpx;
+  }
+
+  .version {
+    font-size: 30 rpx;
+  }
+}
+
+.btn {
+  background-color: @btnc-1;
+  color: #fff;
+  width: 70%;
+  margin-top: 200 rpx;
+
+  &::after {
+    border: none;
+  }
+
+  &:active {
+    background-color: @btnac-1;
+  }
+}
+
+.register-container {
+  text-align: center;
+  font-size: 30 rpx;
+  color: @fc-2;
+  margin-top: 30 rpx;
+
+  .link {
+    color: @fc-4;
+    margin-left: 10 rpx;
+  }
+}
+
+.remark {
+  display: block;
+  color: @fc-3;
+  font-size: 28 rpx;
+  margin-left: 50 rpx;
+  margin-right: 50 rpx;
+  line-height: 1.7;
+  position: absolute;
+  bottom: 60 rpx;
+}

@@ -1,0 +1,37 @@
+@import url("../../style.less");
+
+page {
+  font-family: @ff-1;
+}
+
+.page {
+  padding: 10 rpx 30 rpx 0 30 rpx;
+
+  .btn {
+    background-color: @btnc-1;
+    color: #fff;
+    width: 100%;
+    margin-top: 50 rpx;
+    font-size: 30 rpx;
+    line-height: 3.0;
+
+    &::after {
+      border: none;
+    }
+
+    &:active {
+      background-color: @btnac-1;
+    }
+  }
+
+  .desc {
+    font-size: 28 rpx;
+    text-align: center;
+    margin-top: 30 rpx;
+
+    text {
+      color: @fc-4;
+      text-decoration: underline;
+    }
+  }
+}

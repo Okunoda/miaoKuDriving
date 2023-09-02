@@ -1,0 +1,81 @@
+@import url('../../style.less');
+
+page {
+  font-family: @ff-1;
+}
+
+.face-container {
+  margin-top: 80 rpx;
+  position: relative;
+
+  .camera {
+    display: block;
+    width: 750 rpx;
+    height: 750 rpx;
+  }
+
+  .image-container {
+    width: 750 rpx;
+    height: 750 rpx;
+
+    .cover {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 750 rpx;
+      height: 750 rpx;
+      background-image: url(../static/face_camera/bg.png);
+      background-size: 750 rpx 750 rpx;
+    }
+
+    .photo {
+      width: 750 rpx;
+      height: 750 rpx;
+    }
+  }
+}
+
+.desc {
+  text-align: center;
+
+  .tips {
+    display: block;
+    width: 100 rpx;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 25 rpx;
+  }
+
+  .face {
+    display: block;
+    width: 150 rpx;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 25 rpx;
+  }
+
+  text {
+    display: block;
+    font-size: 30 rpx;
+    margin-bottom: 12 rpx;
+    color: @fc-2;
+  }
+}
+
+.btn {
+  background-color: @btnc-1;
+  color: #fff;
+  width: 70%;
+  margin-top: 200 rpx;
+  position: absolute;
+  left: 15%;
+  bottom: 180 rpx;
+
+  &::after {
+    border: none;
+  }
+
+  &:active {
+    background-color: @btnac-1;
+  }
+}

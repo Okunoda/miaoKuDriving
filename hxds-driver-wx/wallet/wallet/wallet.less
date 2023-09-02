@@ -1,0 +1,228 @@
+@import url("../../style.less");
+
+page {
+  height: 100%;
+  font-family: @ff-1;
+}
+
+.page {
+  padding-bottom: 70 rpx;
+  padding-left: 40 rpx;
+  padding-right: 40 rpx;
+  padding-top: 40 rpx;
+}
+
+.card {
+  background-image: url(../static/wallet/card_bg.png);
+  background-size: cover;
+  border-radius: 15 rpx;
+  background-repeat: no-repeat;
+  color: #fff;
+  padding: 30 rpx 0 rpx;
+
+  .total {
+    padding: 0 rpx 40 rpx;
+    font-size: 32 rpx;
+    display: flex;
+    justify-content: space-between;
+    display: flex;
+
+    .recharge {
+      display: flex;
+
+      .icon {
+        width: 36 rpx;
+        margin-right: 5 rpx;
+        margin-top: 7 rpx;
+      }
+    }
+  }
+
+  .balance {
+    font-size: 60 rpx;
+    padding: 20 rpx 30 rpx;
+
+    text {
+      font-size: 70 rpx;
+      font-weight: bold;
+    }
+  }
+
+  .item-list {
+    padding: 0 40 rpx;
+    display: flex;
+    justify-content: space-between;
+
+    .item {
+      text-align: center;
+
+      .title {
+        font-size: 28 rpx;
+        margin-bottom: 10 rpx;
+        display: flex;
+
+        .icon {
+          width: 36 rpx;
+          height: 36 rpx;
+          margin-right: 5 rpx;
+          margin-top: 3 rpx;
+        }
+      }
+
+      .amount {
+        font-size: 28 rpx;
+      }
+    }
+  }
+}
+
+.record-container {
+  margin-top: 50 rpx;
+
+  .title {
+    border-left: solid 10 rpx @bc-6;
+    line-height: 1.2;
+    padding-left: 10 rpx;
+    margin-bottom: 30 rpx;
+    color: @fc-1;
+    font-size: 32 rpx;
+    color: @fc-1;
+    font-weight: bold;
+  }
+
+  .summary {
+    display: flex;
+    justify-content: space-between;
+
+    .month {
+      display: flex;
+      justify-content: space-between;
+      font-size: 30 rpx;
+      color: @fc-1;
+      width: 260 rpx;
+      line-height: 2;
+      padding: 0 20 rpx;
+      border: solid 1 rpx @bc-7;
+      border-radius: 7 rpx;
+
+      .icon {
+        width: 20 rpx;
+        height: auto;
+        margin-top: 19 rpx;
+      }
+    }
+
+    .total {
+      font-size: 30 rpx;
+      color: @fc-1;
+    }
+  }
+
+  .record-list {
+    margin-top: 30 rpx;
+    border-top: solid 1 rpx @bc-1;
+    border-bottom: solid 1 rpx @bc-1;
+
+    .record {
+      border-bottom: solid 1 rpx @bc-1;
+      padding: 20 rpx 10 rpx;
+      display: flex;
+      justify-content: space-between;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .left {
+        display: flex;
+
+        .date-time {
+          margin-right: 40 rpx;
+
+          .date {
+            display: flex;
+            margin-bottom: 12 rpx;
+
+            .date-icon {
+              width: 34 rpx;
+              margin-top: 5 rpx;
+              margin-right: 12 rpx;
+            }
+
+            text {
+              font-size: 28 rpx;
+              color: @fc-1;
+            }
+          }
+
+          .time {
+            display: flex;
+
+            .time-icon {
+              width: 32 rpx;
+              margin-top: 5 rpx;
+              margin-right: 14 rpx;
+            }
+
+            text {
+              font-size: 28 rpx;
+              color: @fc-16;
+            }
+          }
+        }
+
+        .content {
+          .type {
+            display: block;
+            font-size: 28 rpx;
+            color: @fc-1;
+            margin-bottom: 12 rpx;
+          }
+
+          .desc {
+            display: block;
+            font-size: 28 rpx;
+            color: @fc-16;
+          }
+        }
+      }
+
+      .right {
+        margin-top: 20 rpx;
+
+        .amount {
+          font-size: 38 rpx;
+          margin-right: 5 rpx;
+        }
+
+        .red {
+          .amount;
+          color: @fc-15;
+        }
+
+        .green {
+          .amount;
+          color: @fc-12;
+        }
+
+        .unit {
+          color: @fc-1;
+          font-size: 30 rpx;
+        }
+      }
+    }
+
+    .empty {
+      padding: 40 rpx 0;
+      text-align: center;
+      color: @fc-17;
+      font-size: 28 rpx;
+
+      .no-data {
+        width: 150 rpx;
+        height: 150 rpx;
+      }
+
+    }
+  }
+}

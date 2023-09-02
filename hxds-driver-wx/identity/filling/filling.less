@@ -1,0 +1,136 @@
+@import url("../../style.less");
+
+page {
+  background-color: #eef0f6;
+  height: 100%;
+  font-family: @ff-1;
+}
+
+.page {
+  padding-bottom: 70 rpx;
+  padding-left: 40 rpx;
+  padding-right: 40 rpx;
+  padding-top: 120 rpx;
+}
+
+.notice {
+  background-color: @bgc-5;
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20 rpx 30 rpx;
+  // display: flex;
+  text {
+    font-size: 26 rpx;
+    color: @fc-14;
+    margin-left: 10 rpx;
+  }
+}
+
+.credentials-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  .credentials {
+    width: 214 rpx;
+    height: 150 rpx;
+    margin-bottom: 60 rpx;
+    position: relative;
+
+    .bg {
+      width: 214 rpx;
+      height: 150 rpx;
+      display: block;
+      border-radius: 10 rpx;
+    }
+
+    .cover {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 214 rpx;
+      height: 150 rpx;
+
+      .card {
+        width: 46 rpx;
+        margin-top: 20 rpx;
+        margin-left: 25 rpx;
+      }
+
+      .desc {
+        display: block;
+        font-size: 24 rpx;
+        color: #fff;
+        margin-left: 25 rpx;
+        margin-top: 0 rpx;
+        line-height: 1;
+        font-weight: bold;
+      }
+
+      .camera {
+        border: none;
+        background-color: @btnc-1;
+        width: 70 rpx;
+        height: 70 rpx;
+        border-radius: 35 rpx;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 15 rpx;
+        background-image: url(../static/filling/camera.png);
+        background-size: 40 rpx;
+        background-repeat: no-repeat;
+        background-position: 16 rpx 15 rpx;
+
+        &:active {
+          width: 70 rpx;
+          height: 70 rpx;
+          border-radius: 35 rpx;
+          background-color: @btnac-1;
+        }
+      }
+    }
+  }
+}
+
+.title {
+  font-weight: bold;
+  font-size: 32 rpx;
+  color: @fc-1;
+  margin-top: 25 rpx;
+  margin-bottom: 25 rpx;
+  padding-left: 10 rpx;
+}
+
+.list {
+  border-radius: 20 rpx;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.btn {
+  background-color: @btnc-1;
+  color: #fff;
+  margin-top: 40 rpx;
+  border: none;
+  padding-top: 8 rpx;
+  padding-bottom: 8 rpx;
+
+  &::after {
+    border: none;
+  }
+
+  &:active {
+    background-color: @btnac-1;
+  }
+}
+
+.remark {
+  color: @fc-3;
+  font-size: 28 rpx;
+  margin-top: 30 rpx;
+  line-height: 1.7;
+  bottom: 60 rpx;
+}

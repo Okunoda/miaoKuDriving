@@ -1,0 +1,49 @@
+@import url('../../style.less');
+
+page {
+  font-family: @ff-1;
+}
+
+.camera,
+.image {
+  width: 100%;
+  height: 480 rpx;
+}
+
+.operate-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 50 rpx;
+
+  .btn {
+    width: 40%;
+    margin: 0;
+
+    &::after {
+      border: none;
+    }
+
+    &:first-child {
+      margin-right: 30 rpx;
+    }
+  }
+}
+
+.notice-container {
+  padding: 40 rpx 60 rpx;
+
+  .notice {
+    font-size: 40 rpx;
+    color: @fc-1;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 15 rpx;
+  }
+
+  .desc {
+    display: block;
+    font-size: 32 rpx;
+    color: @fc-3;
+    line-height: 1.7;
+  }
+}

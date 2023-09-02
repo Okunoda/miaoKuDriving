@@ -62,3 +62,8 @@ build/
 package/
 package.zip
 *.DS_Store
+
+### java application ###
+**/*.yml
+**/*.yaml
+**/*.properties
