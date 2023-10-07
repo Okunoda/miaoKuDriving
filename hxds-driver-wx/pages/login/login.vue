@@ -22,6 +22,11 @@ export default {
 		return {};
 	},
 	methods: {
+		toRegisterPage: function() {
+            uni.navigateTo({
+                url: '../register/register'
+            });
+        }
 		
 	},
 	onLoad: function() {

@@ -67,3 +67,5 @@ package.zip
 **/*.yml
 **/*.yaml
 **/*.properties
+
+**/node_modules/

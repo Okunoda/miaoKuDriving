@@ -9,6 +9,8 @@ import java.util.Map;
  */
 public interface DriverSettingsDao {
 
+    DriverSettingsEntity insertDriverSettings(DriverSettingsEntity entity);
+
 }
 
 

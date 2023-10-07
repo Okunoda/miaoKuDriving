@@ -76,6 +76,7 @@
 				</view>
 			</view>
 		</view>
+        <!-- 小程序中使用 @tap 作为点击事件的调用函数 -->
 		<button class="btn" open-type="getUserInfo" @tap="register()">立即注册</button>
 		<u-toast ref="uToast" />
 	</view>
@@ -89,7 +90,48 @@ export default {
 		};
 	},
 	methods: {
-		
+		register:function(){
+            let that = this
+            that.url
+            uni.login({
+              provider:"weixin", 
+              success:function(resp){
+                  let code = resp.code;
+                  that.code = code;
+              }
+            })
+            uni.getUserProfile({
+                desc:"获取用户信息",
+                success:function(resp){
+                    console.log(resp.userInfo);
+                    let nickname = resp.userInfo.nickName;
+                    let avatarUrl = resp.userInfo.avatarUrl;
+                    let data = {
+                        code:that.code,
+                        nickname:that.code,
+                        photo:that.avatarUrl
+                    };
+                    that.ajax(that.url.registerNewDriver,"POST",data,function(resp){
+                        console.log(resp);
+                        let token = resp.token;
+                        uni.setStorageSync("token" , token);
+                        uni.setStorageSync("realAuth" , 1);
+                        that.$refs.uToast.show({
+                            title:'注册成功',
+                            type:"success",
+                            //回调函数，等上述执行完成功之后才会执行的函数， uni.showToast() 方法中的 success 会在内容还没显示完成前就调用
+                            callback:function(){
+                                uni.redirectTo({
+                                    // mode 参数表明进入操作时的来源，这里来源指明是初次创建（还有可能存在其他情况，比如实名认证信息更换的时候）
+                                    url:"../../identity/filling/filling?mode=create"
+                                })
+                            }
+                        })
+                    });
+                    
+                }
+            })
+        }
 	}
 };
 </script>

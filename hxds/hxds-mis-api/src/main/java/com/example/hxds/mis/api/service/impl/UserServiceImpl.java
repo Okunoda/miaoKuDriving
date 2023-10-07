@@ -52,16 +52,16 @@ public class UserServiceImpl implements UserService {
         return map;
     }
 
-    @Override
-    public boolean checkQrCode(String code, String uuid) {
-        boolean bool = redisTemplate.hasKey(uuid);
-        if (bool) {
-            String openId = getOpenId(code);
-            long userId = userDao.searchIdByOpenId(openId);
-            redisTemplate.opsForValue().set(uuid, userId);
-        }
-        return bool;
-    }
+//    @Override
+//    public boolean checkQrCode(String code, String uuid) {
+//        boolean bool = redisTemplate.hasKey(uuid);
+//        if (bool) {
+//            String openId = getOpenId(code);
+//            long userId = userDao.searchIdByOpenId(openId);
+//            redisTemplate.opsForValue().set(uuid, userId);
+//        }
+//        return bool;
+//    }
 
     @Override
     public HashMap wechatLogin(String uuid) {

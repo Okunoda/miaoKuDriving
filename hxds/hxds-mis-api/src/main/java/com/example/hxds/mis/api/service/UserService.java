@@ -11,7 +11,7 @@ import java.util.Set;
 public interface UserService {
     public HashMap createQrCode();
 
-    public boolean checkQrCode(String code, String uuid);
+//    public boolean checkQrCode(String code, String uuid);
 
     public HashMap wechatLogin(String uuid);
 

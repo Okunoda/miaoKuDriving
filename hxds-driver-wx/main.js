@@ -34,9 +34,12 @@ export function createApp() {
 // #endif
 
 
-let baseUrl = "http://你自己电脑的IP地址（绝对不能写localhost和127.0.0.1）/hxds-driver"
+let baseUrl = "http:/192.168.31.24:8201/hxds-driver"
 
-Vue.prototype.url = {}
+Vue.prototype.url = {
+    registerNewDriver: `${baseUrl}/driver/registerNewDriver`
+
+}
 
 Vue.prototype.tencent = {
     map: {

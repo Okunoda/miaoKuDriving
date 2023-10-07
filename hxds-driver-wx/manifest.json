@@ -50,7 +50,7 @@
   "quickapp": {},
   /* 小程序特有相关 */
   "mp-weixin": {
-    "appid": "你的小程序APPID",
+    "appid": "wx4d73901b669abec8",
     "optimization": {
       "subPackages": true
     },
@@ -82,8 +82,8 @@
       }
     },
     /**
-     * 挂到后台依然可以使用GPS定位
-     */
+ * 挂到后台依然可以使用GPS定位
+ */
     "requiredBackgroundModes": [
       "location"
     ],
