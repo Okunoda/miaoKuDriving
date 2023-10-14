@@ -6,7 +6,8 @@
 
     <insert id="insertDriverSettings" parameterType="com.example.hxds.dr.db.pojo.DriverSettingsEntity">
         INSERT INTO tb_driver_settings
-        SET driver_id = #{driverId}, settings = #{settings}
+        SET driver_id = #{driverId},
+            settings = #{settings}
     </insert>
 
 

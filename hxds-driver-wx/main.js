@@ -33,8 +33,7 @@ export function createApp() {
 
 // #endif
 
-
-let baseUrl = "http:/192.168.31.24:8201/hxds-driver"
+let baseUrl = "http://192.168.31.86:8201/hxds-driver"
 
 Vue.prototype.url = {
     registerNewDriver: `${baseUrl}/driver/registerNewDriver`

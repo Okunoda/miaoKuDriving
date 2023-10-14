@@ -6,6 +6,8 @@
 
     <insert id="insert">
         insert into tb_wallet
-        set driver_id = #{driverId}, balance = #{balance}, password = #{password}
+        set driver_id = #{driverId},
+            balance = #{balance},
+            password = #{password}
     </insert>
 </mapper>

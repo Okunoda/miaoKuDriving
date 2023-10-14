@@ -91,11 +91,11 @@ export default {
 	},
 	methods: {
 		register:function(){
-            let that = this
+            let that = this //缓存住当前的 vue 对象
             that.url
             uni.login({
               provider:"weixin", 
-              success:function(resp){
+              success:function(resp){   //回调函数获取临时生成的字符串
                   let code = resp.code;
                   that.code = code;
               }
@@ -103,19 +103,22 @@ export default {
             uni.getUserProfile({
                 desc:"获取用户信息",
                 success:function(resp){
-                    console.log(resp.userInfo);
                     let nickname = resp.userInfo.nickName;
                     let avatarUrl = resp.userInfo.avatarUrl;
                     let data = {
                         code:that.code,
-                        nickname:that.code,
-                        photo:that.avatarUrl
+                        nickname:nickname,
+                        photo:avatarUrl
                     };
+                    console.log(data);
                     that.ajax(that.url.registerNewDriver,"POST",data,function(resp){
                         console.log(resp);
-                        let token = resp.token;
+                        let token = resp.data.token;
+                        //在小程序的 storage 存储空间缓存 token 信息
                         uni.setStorageSync("token" , token);
+                        //新注册的司机是没有实名认证的，故这里写死为 1
                         uni.setStorageSync("realAuth" , 1);
+                        
                         that.$refs.uToast.show({
                             title:'注册成功',
                             type:"success",

@@ -1,0 +1,28 @@
+page {
+  font-family: Helvetica Neue, Helvetica, Arial, Microsoft Yahei, Hiragino Sans GB, Heiti SC, WenQuanYi Micro Hei, sans-serif;
+}
+.page {
+  padding: 0 rpx 40 rpx 70 rpx 40 rpx;
+}
+.title {
+  color: #444;
+  text-align: center;
+  font-size: 38 rpx;
+  font-weight: bold;
+  margin-top: 50 rpx;
+  margin-bottom: 40 rpx;
+}
+.section {
+  color: #444;
+  font-weight: bold;
+  font-size: 32 rpx;
+  line-height: 1;
+  margin: 30 rpx 0;
+}
+.desc {
+  font-size: 28 rpx;
+  color: #a0a0a0;
+  line-height: 1.7;
+  margin-bottom: 20 rpx;
+}
+

@@ -23,7 +23,8 @@ public class DriverController {
     @Resource
     private DriverService driverService;
 
-    @PostMapping("/register")
+//    @PostMapping("/register")
+    @PostMapping("/registerNewDriver")
     @Operation(summary = "注册新司机")
     public R registerNewDriver(@RequestBody @Valid RegisterNewDriverForm form) {
         Map param = BeanUtil.beanToMap(form);

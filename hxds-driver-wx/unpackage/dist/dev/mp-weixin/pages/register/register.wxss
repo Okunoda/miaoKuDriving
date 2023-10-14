@@ -1,0 +1,124 @@
+page {
+  background-color: #eef0f6;
+  height: 100%;
+  font-family: Helvetica Neue, Helvetica, Arial, Microsoft Yahei, Hiragino Sans GB, Heiti SC, WenQuanYi Micro Hei, sans-serif;
+}
+.page {
+  padding-bottom: 70 rpx;
+}
+.top {
+  width: 100%;
+}
+.location-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 25 rpx 30 rpx;
+  border-radius: 10 rpx;
+  position: relative;
+  top: -40 rpx;
+  box-shadow: #e0e0e0 0px 2px 8px 0px;
+  margin-bottom: 50 rpx;
+}
+.location-container .left {
+  display: flex;
+  font-size: 28 rpx;
+  color: #555;
+}
+.location-container .left .location {
+  width: 30 rpx;
+  margin-top: 6 rpx;
+  margin-right: 5 rpx;
+}
+.location-container .right {
+  font-size: 28 rpx;
+  color: #555;
+}
+.info-container {
+  background-color: #fff;
+  border-radius: 10 rpx;
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 25 rpx;
+  margin-bottom: 80 rpx;
+}
+.info-container .title-container {
+  text-align: center;
+  position: relative;
+  margin-bottom: 25 rpx;
+}
+.info-container .title-container .title-bg {
+  width: 380 rpx;
+  margin-top: -29 rpx;
+}
+.info-container .title-container .title {
+  color: #444;
+  text-align: center;
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: -14 rpx;
+  font-size: 32 rpx;
+  font-weight: bold;
+}
+.info-container .list {
+  margin: 0 40 rpx;
+  font-size: 28 rpx;
+  color: #999;
+  line-height: 1.7;
+}
+.info-container .list .item {
+  margin-bottom: 10 rpx;
+  display: flex;
+}
+.info-container .list .item text {
+  margin-right: 15 rpx;
+}
+.info-container .list .complex-item {
+  display: flex;
+  line-height: 1;
+  border-bottom: solid 1 rpx #e5e5e5;
+  padding-bottom: 35 rpx;
+  padding-top: 35 rpx;
+}
+.info-container .list .complex-item:first-child {
+  padding-top: 0;
+}
+.info-container .list .complex-item:last-child {
+  border-bottom: none;
+}
+.info-container .list .complex-item .left {
+  font-size: 90 rpx;
+  color: #d5d5d5;
+  font-weight: bold;
+  margin-right: 25 rpx;
+}
+.info-container .list .complex-item .right .item-title {
+  font-weight: bold;
+  color: #444;
+  display: block;
+  font-size: 34 rpx;
+  margin-top: 8 rpx;
+  margin-bottom: 14 rpx;
+}
+.info-container .list .complex-item .right .item-desc {
+  color: #999;
+  display: block;
+  font-size: 28 rpx;
+}
+.btn {
+  width: 85%;
+  background-color: #2074fd;
+  color: #fff;
+}
+.btn::after {
+  border: none;
+}
+.btn:active {
+  background-color: #0259e9;
+}
+

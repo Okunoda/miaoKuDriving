@@ -47,10 +47,11 @@ public class DriverServiceImpl implements DriverService {
         HashMap tempParam = new HashMap<>() {{
             put("openId", openId);
         }};
-        //验证是否重复注册
+        //验证是否重复注册，查询是否存在记录
         if (driverDao.hasDriver(tempParam) != 0) {
             throw new HxdsException("该微信无法注册账号");
         }
+        //将临时获取的 openId 永久的存储起来
         param.put("openId", openId);
         //放入司机的记录
         driverDao.registerNewDriver(param);
