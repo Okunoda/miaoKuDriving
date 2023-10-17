@@ -30,7 +30,9 @@ _vue.default.use(_uviewUi.default);
 createApp(app).$mount();
 var baseUrl = "http://192.168.31.86:8201/hxds-driver";
 _vue.default.prototype.url = {
-  registerNewDriver: "".concat(baseUrl, "/driver/registerNewDriver")
+  registerNewDriver: "".concat(baseUrl, "/driver/registerNewDriver"),
+  uploadCosPrivateFile: "".concat(baseUrl, "/cos/uploadCosPrivateFile"),
+  deleteCosPrivateFile: "".concat(baseUrl, "/cos/deleteCosPrivateFile")
 };
 _vue.default.prototype.tencent = {
   map: {
@@ -128,6 +130,13 @@ _vue.default.prototype.refreshMessage = function (that) {
     }
   });
 };
+
+/**
+ * @param {Object} url  请求地址
+ * @param {Object} path 照片地址
+ * @param {Object} module   文件路径
+ * @param {Object} fun  回调函数
+ */
 _vue.default.prototype.uploadCos = function (url, path, module, fun) {
   uni.uploadFile({
     url: url,

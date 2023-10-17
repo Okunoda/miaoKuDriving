@@ -4,9 +4,9 @@ page {
 }
 .waiting-container {
   background-color: #fff;
-  padding-top: 100 rpx;
-  padding-bottom: 80 rpx;
-  margin-bottom: 25 rpx;
+  padding-top: 100rpx;
+  padding-bottom: 80rpx;
+  margin-bottom: 25rpx;
 }
 .waiting-container .payment {
   display: block;
@@ -15,23 +15,23 @@ page {
   margin-right: auto;
 }
 .waiting-container .title {
-  font-size: 38 rpx;
+  font-size: 38rpx;
   font-weight: bold;
   color: #444;
   text-align: center;
-  margin-top: 30 rpx;
+  margin-top: 30rpx;
 }
 .waiting-container .second {
   text-align: center;
-  margin-top: 15 rpx;
+  margin-top: 15rpx;
   color: #444;
-  font-size: 34 rpx;
+  font-size: 34rpx;
 }
 .waiting-container .btn {
   background-color: #2074fd;
   color: #fff;
   width: 65%;
-  margin-top: 80 rpx;
+  margin-top: 80rpx;
 }
 .waiting-container .btn::after {
   border: none;
@@ -41,29 +41,29 @@ page {
 }
 .notice-container {
   background-color: #fff;
-  padding-left: 20 rpx;
-  padding-right: 30 rpx;
-  padding-bottom: 80 rpx;
+  padding-left: 20rpx;
+  padding-right: 30rpx;
+  padding-bottom: 80rpx;
 }
 .notice-container .notice-title {
   text-align: center;
-  font-size: 32 rpx;
-  padding-top: 50 rpx;
-  padding-bottom: 20 rpx;
+  font-size: 32rpx;
+  padding-top: 50rpx;
+  padding-bottom: 20rpx;
 }
 .notice-container .notice-title text {
-  margin-left: 5 rpx;
+  margin-left: 5rpx;
 }
 .notice-container .desc {
-  font-size: 28 rpx;
+  font-size: 28rpx;
   color: #a0a0a0;
   line-height: 1.7;
-  padding-left: 25 rpx;
-  padding-top: 10 rpx;
-  padding-bottom: 10 rpx;
+  padding-left: 25rpx;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
   display: flex;
 }
 .notice-container .desc .num {
-  margin-right: 10 rpx;
+  margin-right: 10rpx;
 }
 

@@ -4,12 +4,12 @@ page {
 .camera,
 .image {
   width: 100%;
-  height: 480 rpx;
+  height: 480rpx;
 }
 .operate-container {
   display: flex;
   justify-content: center;
-  margin-top: 50 rpx;
+  margin-top: 50rpx;
 }
 .operate-container .btn {
   width: 40%;
@@ -19,21 +19,21 @@ page {
   border: none;
 }
 .operate-container .btn:first-child {
-  margin-right: 30 rpx;
+  margin-right: 30rpx;
 }
 .notice-container {
-  padding: 40 rpx 60 rpx;
+  padding: 40rpx 60rpx;
 }
 .notice-container .notice {
-  font-size: 40 rpx;
+  font-size: 40rpx;
   color: #444;
   font-weight: bold;
   display: block;
-  margin-bottom: 15 rpx;
+  margin-bottom: 15rpx;
 }
 .notice-container .desc {
   display: block;
-  font-size: 32 rpx;
+  font-size: 32rpx;
   color: #a0a0a0;
   line-height: 1.7;
 }

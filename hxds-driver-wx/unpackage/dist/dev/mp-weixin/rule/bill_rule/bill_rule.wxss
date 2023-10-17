@@ -2,47 +2,47 @@ page {
   font-family: Helvetica Neue, Helvetica, Arial, Microsoft Yahei, Hiragino Sans GB, Heiti SC, WenQuanYi Micro Hei, sans-serif;
 }
 .page {
-  padding: 50 rpx 40 rpx 70 rpx 40 rpx;
+  padding: 50rpx 40rpx 70rpx 40rpx;
 }
 .title {
-  font-size: 38 rpx;
+  font-size: 38rpx;
   color: #444;
   text-align: center;
 }
 .section {
-  margin-top: 40 rpx;
+  margin-top: 40rpx;
 }
 .section .section-title {
   display: flex;
   color: #a0a0a0;
-  font-size: 32 rpx;
-  margin-bottom: 30 rpx;
+  font-size: 32rpx;
+  margin-bottom: 30rpx;
 }
 .section .section-title::before {
   content: '';
   display: block;
   height: 0;
   flex-grow: 1;
-  border-bottom: 1 rpx solid #ccc;
-  margin-right: 25 rpx;
-  margin-top: 24 rpx;
+  border-bottom: 1rpx solid #ccc;
+  margin-right: 25rpx;
+  margin-top: 24rpx;
 }
 .section .section-title::after {
   content: '';
   display: block;
   height: 0;
   flex-grow: 1;
-  border-bottom: 1 rpx solid #ccc;
-  margin-left: 25 rpx;
-  margin-top: 24 rpx;
+  border-bottom: 1rpx solid #ccc;
+  margin-left: 25rpx;
+  margin-top: 24rpx;
 }
 .section .item {
   display: flex;
-  font-size: 32 rpx;
+  font-size: 32rpx;
   color: #444;
   line-height: 1;
-  margin-top: 40 rpx;
-  margin-bottom: 20 rpx;
+  margin-top: 40rpx;
+  margin-bottom: 20rpx;
   justify-content: space-between;
 }
 .section .item .left {
@@ -51,33 +51,33 @@ page {
 .section .item .left::before {
   content: '';
   display: block;
-  width: 10 rpx;
-  height: 32 rpx;
+  width: 10rpx;
+  height: 32rpx;
   background-color: #777;
-  margin-right: 15 rpx;
-  border-radius: 3 rpx;
+  margin-right: 15rpx;
+  border-radius: 3rpx;
 }
 .section .row {
   display: flex;
   justify-content: space-between;
-  padding-left: 25 rpx;
-  padding-top: 10 rpx;
-  padding-bottom: 10 rpx;
+  padding-left: 25rpx;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
 }
 .section .row .label {
   color: #a0a0a0;
-  font-size: 28 rpx;
+  font-size: 28rpx;
 }
 .section .row .value {
   color: #a0a0a0;
-  font-size: 28 rpx;
+  font-size: 28rpx;
 }
 .section .desc {
-  font-size: 28 rpx;
+  font-size: 28rpx;
   color: #a0a0a0;
   line-height: 1.7;
-  padding-left: 25 rpx;
-  padding-top: 10 rpx;
-  padding-bottom: 10 rpx;
+  padding-left: 25rpx;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
 }
 

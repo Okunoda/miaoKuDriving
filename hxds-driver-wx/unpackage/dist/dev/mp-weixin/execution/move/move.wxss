@@ -5,43 +5,43 @@ page {
   width: 100%;
 }
 .location {
-  width: 50 rpx;
-  height: 50 rpx;
+  width: 50rpx;
+  height: 50rpx;
   position: absolute;
-  right: 45 rpx;
-  bottom: 60 rpx;
+  right: 45rpx;
+  bottom: 60rpx;
 }
 .information-container {
   display: flex;
   position: absolute;
-  bottom: 70 rpx;
+  bottom: 70rpx;
   width: 90%;
   left: 5%;
   background-color: rgba(255, 255, 255, 0.95);
-  border-radius: 8 rpx;
-  border: solid 1 rpx #e0e0e0;
-  padding: 0 35 rpx;
+  border-radius: 8rpx;
+  border: solid 1rpx #e0e0e0;
+  padding: 0 35rpx;
   box-sizing: border-box;
 }
 .information-container .close-icon {
   display: block;
-  width: 30 rpx;
-  height: 30 rpx;
-  margin-top: 38 rpx;
-  margin-right: 30 rpx;
+  width: 30rpx;
+  height: 30rpx;
+  margin-top: 38rpx;
+  margin-right: 30rpx;
 }
 .information-container .info {
   display: flex;
-  padding: 30 rpx 0;
+  padding: 30rpx 0;
 }
 .information-container .info .label {
-  font-size: 34 rpx;
+  font-size: 34rpx;
   color: #555;
 }
 .information-container .info .value {
   font-weight: bolder !important;
-  font-size: 34 rpx;
+  font-size: 34rpx;
   color: #2074fd;
-  margin: 0 5 rpx;
+  margin: 0 5rpx;
 }
 
