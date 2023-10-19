@@ -11,7 +11,6 @@ import com.example.hxds.dr.db.dao.WalletDao;
 import com.example.hxds.dr.db.pojo.DriverSettingsEntity;
 import com.example.hxds.dr.db.pojo.WalletEntity;
 import com.example.hxds.dr.sevice.DriverService;
-import com.google.gson.JsonObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -98,5 +97,12 @@ public class DriverServiceImpl implements DriverService {
         walletDao.deleteWalletByDriverId(id);
 
         return id;
+    }
+
+    @LcnTransaction
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public Integer updateDriverAuth(Map<String, Object> param) {
+        return driverDao.updateDriverAuth(param);
     }
 }

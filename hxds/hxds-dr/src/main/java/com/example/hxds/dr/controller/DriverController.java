@@ -3,6 +3,7 @@ package com.example.hxds.dr.controller;
 import cn.hutool.core.bean.BeanUtil;
 import com.example.hxds.common.util.R;
 import com.example.hxds.dr.controller.form.RegisterNewDriverForm;
+import com.example.hxds.dr.controller.form.UpdateDriverAuthForm;
 import com.example.hxds.dr.sevice.DriverService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,17 +22,26 @@ public class DriverController {
     @Resource
     private DriverService driverService;
 
-    @PostMapping("/registerNewDriver")
-    @Operation(summary = "注册新司机")
-    public R registerNewDriver(@RequestBody @Valid RegisterNewDriverForm form) {
-        Map param = BeanUtil.beanToMap(form);
-        String userId = driverService.registerNewDriver(param);
-        return R.ok().put("userId", userId);
-    }
+        @PostMapping("/registerNewDriver")
+        @Operation(summary = "注册新司机")
+        public R registerNewDriver(@RequestBody @Valid RegisterNewDriverForm form) {
+            Map param = BeanUtil.beanToMap(form);
+            String userId = driverService.registerNewDriver(param);
+            return R.ok().put("userId", userId);
+        }
 
     @PostMapping("/deleteDriver")
     public R deleteDriver(Long id){
         Long userId = driverService.deleteDriver(id);
         return R.ok().put("userId",userId);
+    }
+
+    @PostMapping("/updateDriverAuth")
+    @Operation(summary = "更新司机实名信息")
+    public R updateDriverAuth(@RequestBody @Valid UpdateDriverAuthForm form){
+        Map<String, Object> param = BeanUtil.beanToMap(form);
+
+        Integer rows = driverService.updateDriverAuth(param);
+        return R.ok().put("rows",rows);
     }
 }

@@ -1,7 +1,9 @@
 package com.example.hxds.bff.driver.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.StpUtil;
 import com.example.hxds.bff.driver.controller.form.RegisterNewDriverForm;
+import com.example.hxds.bff.driver.controller.form.UpdateDriverAuthForm;
 import com.example.hxds.bff.driver.service.DriverService;
 import com.example.hxds.common.util.R;
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,5 +38,16 @@ public class DriverController {
         Long driverId = driverService.deleteDriver(id);
         StpUtil.logout(driverId);
         return driverId > 0 ? R.ok():R.error();
+    }
+
+    @PostMapping("/updateDriverAuth")
+    @Operation(summary = "更新司机实名信息")
+    @SaCheckLogin
+    public R updateDriverAuth(@RequestBody @Valid UpdateDriverAuthForm form){
+        //获取当前登录用户的 id
+        long loginIdAsLong = StpUtil.getLoginIdAsLong();
+        form.setDriverId(loginIdAsLong);
+        Integer rows = driverService.updateDriverAuth(form);
+        return R.ok().put("rows",rows);
     }
 }

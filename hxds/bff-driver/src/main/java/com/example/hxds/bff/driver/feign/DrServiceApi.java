@@ -1,6 +1,7 @@
 package com.example.hxds.bff.driver.feign;
 
 import com.example.hxds.bff.driver.controller.form.RegisterNewDriverForm;
+import com.example.hxds.bff.driver.controller.form.UpdateDriverAuthForm;
 import com.example.hxds.common.util.R;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,4 +25,7 @@ public interface DrServiceApi {
      */
     @PostMapping("/driver/deleteDriver")
     R deleteDriver(@RequestParam("id") Long id);
+
+    @PostMapping("/driver/updateDriverAuth")
+    R updateDriverAuth(UpdateDriverAuthForm form);
 }

@@ -15,6 +15,8 @@ public interface DriverDao {
 
 
     Integer deleteDriver(Long id);
+
+    Integer updateDriverAuth(Map<String, Object> param);
 }
 
 

@@ -2,6 +2,7 @@ package com.example.hxds.bff.driver.service.impl;
 
 import cn.hutool.core.convert.Convert;
 import com.example.hxds.bff.driver.controller.form.RegisterNewDriverForm;
+import com.example.hxds.bff.driver.controller.form.UpdateDriverAuthForm;
 import com.example.hxds.bff.driver.feign.DrServiceApi;
 import com.example.hxds.bff.driver.service.DriverService;
 import com.example.hxds.common.util.R;
@@ -25,5 +26,11 @@ public class DriverServiceImpl implements DriverService {
     public Long deleteDriver(Long id) {
         R result = drServiceApi.deleteDriver(id);
         return Convert.toLong(result.get("userId"));
+    }
+
+    @Override
+    public Integer updateDriverAuth(UpdateDriverAuthForm form) {
+        R result = drServiceApi.updateDriverAuth(form);
+        return Convert.toInt(result.get("rows"));
     }
 }
