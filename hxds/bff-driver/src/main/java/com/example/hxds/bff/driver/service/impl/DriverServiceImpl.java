@@ -20,4 +20,10 @@ public class DriverServiceImpl implements DriverService {
         R r = drServiceApi.registerNewDriver(form);
         return Convert.toLong(r.get("userId"));
     }
+
+    @Override
+    public Long deleteDriver(Long id) {
+        R result = drServiceApi.deleteDriver(id);
+        return Convert.toLong(result.get("userId"));
+    }
 }

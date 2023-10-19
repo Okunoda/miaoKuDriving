@@ -10,4 +10,8 @@
             balance = #{balance},
             password = #{password}
     </insert>
+    <delete id="deleteWalletByDriverId">
+        delete from tb_wallet
+        where driver_id = #{id}
+    </delete>
 </mapper>

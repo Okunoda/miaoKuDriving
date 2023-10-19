@@ -4,6 +4,7 @@ import com.example.hxds.bff.driver.controller.form.RegisterNewDriverForm;
 import com.example.hxds.common.util.R;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 //FeignClient注解的value写司机子模块注册在nacos中的模块名
 @FeignClient(value="hxds-dr")
@@ -15,4 +16,12 @@ public interface DrServiceApi {
      */
     @PostMapping("/driver/registerNewDriver")
     R registerNewDriver(RegisterNewDriverForm form);
+
+    /**
+     * 根据司机 id 将司机信息删除
+     * @param id    司机 id
+     * @return      司机 id
+     */
+    @PostMapping("/driver/deleteDriver")
+    R deleteDriver(@RequestParam("id") Long id);
 }

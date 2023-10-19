@@ -13,7 +13,10 @@
             archive = false,
             `status` = 1
     </insert>
-
+    <delete id="deleteDriver">
+        delete from tb_driver
+        where id = #{id}
+    </delete>
 
 
     <select id="hasDriver" resultType="java.lang.Long" parameterType="java.util.Map">

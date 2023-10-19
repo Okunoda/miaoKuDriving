@@ -14,6 +14,7 @@ public interface DriverDao {
     String searchDriverId(String openId);
 
 
+    Integer deleteDriver(Long id);
 }
 
 

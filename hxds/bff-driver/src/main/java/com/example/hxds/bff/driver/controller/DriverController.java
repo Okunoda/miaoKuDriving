@@ -6,10 +6,8 @@ import com.example.hxds.bff.driver.service.DriverService;
 import com.example.hxds.common.util.R;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -30,5 +28,13 @@ public class DriverController {
         //生成Token令牌字符串（已加密）
         String token = StpUtil.getTokenInfo().getTokenValue();
         return R.ok().put("token", token);
+    }
+
+    @PostMapping("/deleteDriver")
+    @Operation(summary = "删除司机相关信息")
+    public R deleteDriver( Long id){
+        Long driverId = driverService.deleteDriver(id);
+        StpUtil.logout(driverId);
+        return driverId > 0 ? R.ok():R.error();
     }
 }

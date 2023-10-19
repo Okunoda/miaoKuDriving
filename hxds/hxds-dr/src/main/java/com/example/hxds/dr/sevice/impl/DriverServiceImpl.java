@@ -38,7 +38,7 @@ public class DriverServiceImpl implements DriverService {
     private DriverDao driverDao;
 
     @LcnTransaction
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public String registerNewDriver(Map param) {
         String code = MapUtil.getStr(param, "code");
@@ -79,5 +79,24 @@ public class DriverServiceImpl implements DriverService {
         walletDao.insert(walletEntity);
 
         return driverId;
+    }
+
+    @LcnTransaction
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public Long deleteDriver(Long id) {
+        Map tempParam = new HashMap<>();
+        tempParam.put("id",id);
+        if(id == null || id.equals(0L) || driverDao.hasDriver(tempParam) == 0) {
+            throw new HxdsException("id 参数不正确");
+        }
+
+        driverDao.deleteDriver(id);
+
+        driverSettingsDao.deleteDriverSettingByDriverId(id);
+
+        walletDao.deleteWalletByDriverId(id);
+
+        return id;
     }
 }

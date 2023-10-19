@@ -36,8 +36,9 @@ export function createApp() {
 let baseUrl = "http://192.168.31.86:8201/hxds-driver"
 
 Vue.prototype.url = {
-    registerNewDriver: `${baseUrl}/driver/registerNewDriver`
-
+    registerNewDriver: `${baseUrl}/driver/registerNewDriver`,
+    uploadCosPrivateFile: `${baseUrl}/cos/uploadCosPrivateFile`,
+    deleteCosPrivateFile: `${baseUrl}/cos/deleteCosPrivateFile`
 }
 
 Vue.prototype.tencent = {
@@ -143,7 +144,14 @@ Vue.prototype.refreshMessage = function (that) {
     })
 }
 
+/**
+ * @param {Object} url  请求地址
+ * @param {Object} path 照片地址
+ * @param {Object} module   文件路径
+ * @param {Object} fun  回调函数
+ */
 Vue.prototype.uploadCos = function (url, path, module, fun) {
+    console.log("method into")
     uni.uploadFile({
         url: url,
         filePath: path,
@@ -155,6 +163,7 @@ Vue.prototype.uploadCos = function (url, path, module, fun) {
             "module": module
         },
         success: function (resp) {
+            console.log("成功的回调函数生效")
             let data = JSON.parse(resp.data)
             if (resp.statusCode == 401) {
                 uni.redirectTo({
@@ -170,6 +179,7 @@ Vue.prototype.uploadCos = function (url, path, module, fun) {
             }
         }
     })
+    console.log("method over")
 }
 
 Vue.prototype.upload = function (url, path, data, fun) {

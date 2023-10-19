@@ -5,4 +5,6 @@ import com.example.hxds.bff.driver.controller.form.RegisterNewDriverForm;
 public interface DriverService {
 
     long registerNewDriver(RegisterNewDriverForm form);
+
+    Long deleteDriver(Long id);
 }

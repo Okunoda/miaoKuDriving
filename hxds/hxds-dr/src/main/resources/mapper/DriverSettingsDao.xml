@@ -9,6 +9,10 @@
         SET driver_id = #{driverId},
             settings = #{settings}
     </insert>
+    <delete id="deleteDriverSettingByDriverId">
+        delete from tb_driver_settings
+        where driver_id = #{id}
+    </delete>
 
 
 </mapper>

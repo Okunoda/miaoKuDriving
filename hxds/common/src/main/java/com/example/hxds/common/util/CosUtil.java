@@ -112,6 +112,10 @@ public class CosUtil {
 
     /**
      * 向私有存储桶上传文件
+     * @param file  文件名
+     * @param path  路径名
+     * @return  文件路径+重命名后的文件名
+     * @throws IOException
      */
     public HashMap uploadPrivateFile(MultipartFile file, String path) throws IOException {
         String fileName = file.getOriginalFilename(); //上传文件的名字

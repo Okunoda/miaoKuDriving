@@ -11,6 +11,7 @@ public interface WalletDao {
     int insert(WalletEntity entity);
 
 
+    Integer deleteWalletByDriverId(Long id);
 }
 
 

@@ -138,6 +138,7 @@ _vue.default.prototype.refreshMessage = function (that) {
  * @param {Object} fun  回调函数
  */
 _vue.default.prototype.uploadCos = function (url, path, module, fun) {
+  console.log("method into");
   uni.uploadFile({
     url: url,
     filePath: path,
@@ -149,6 +150,7 @@ _vue.default.prototype.uploadCos = function (url, path, module, fun) {
       "module": module
     },
     success: function success(resp) {
+      console.log("成功的回调函数生效");
       var data = JSON.parse(resp.data);
       if (resp.statusCode == 401) {
         uni.redirectTo({
@@ -164,6 +166,7 @@ _vue.default.prototype.uploadCos = function (url, path, module, fun) {
       }
     }
   });
+  console.log("method over");
 };
 _vue.default.prototype.upload = function (url, path, data, fun) {
   uni.uploadFile({

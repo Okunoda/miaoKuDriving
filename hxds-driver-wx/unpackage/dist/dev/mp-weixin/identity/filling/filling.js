@@ -279,14 +279,6 @@ exports.default = void 0;
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 var dayjs = __webpack_require__(/*! dayjs */ 84);
 var _default = {
@@ -297,18 +289,22 @@ var _default = {
         color: '#FF9900'
       },
       cardBackground: ['../static/filling/credentials-bg.jpg', '../static/filling/credentials-bg.jpg', '../static/filling/credentials-bg.jpg', '../static/filling/credentials-bg.jpg', '../static/filling/credentials-bg.jpg', '../static/filling/credentials-bg.jpg'],
+      // 身份证信息
       idcard: {
         pid: '',
         name: '',
         sex: '',
         address: '',
+        //真正提交到数据库中的地址
         shortAddress: '',
+        //缩略地址
         birthday: '',
         expiration: '',
         idcardFront: '',
         idcardBack: '',
         idcardHolding: ''
       },
+      // 联系人的信息
       contact: {
         tel: '',
         email: '',
@@ -318,6 +314,7 @@ var _default = {
         contactName: '',
         contactTel: ''
       },
+      // 驾驶证信息
       drcard: {
         issueDate: '',
         carClass: '',
@@ -327,12 +324,121 @@ var _default = {
         drcardBack: '',
         drcardHolding: ''
       },
+      //这两个变量的作用是做对比然后删除云端多余的证件照片的作用
+      /**
+       * 由于可能存在的用户对第一次拍照不满意，重新拍照的情况，但是这些照片都已经上传到了云端
+       * 所以将cosImg的地址和currentImg中的照片地址做对比，看哪些照片是多余的，也就是currentImg中不存在，就将其删除。
+       * currentImg就是存放最终要用的照片地址
+       */
       cosImg: [],
       currentImg: {},
       realAuth: uni.getStorageSync('realAuth')
     };
   },
-  methods: {},
+  methods: {
+    scanIdcardFront: function scanIdcardFront(resp) {
+      var that = this;
+      var detail = resp.detail;
+      that.idcard.pid = detail.id.text;
+      that.idcard.name = detail.name.text;
+      that.idcard.sex = detail.gender.text;
+      that.idcard.address = detail.address.text;
+      //需要缩略身份证地址，文字太长页面显示不了
+      that.idcard.shortAddress = detail.address.text.substr(0, 15) + '...';
+      that.idcard.birthday = detail.birth.text;
+      //OCR插件拍摄到的身份证正面照片存储地址
+      that.idcard.idcardFront = detail.image_path;
+      //让身份证View标签加载身份证正面照片
+      that.cardBackground[0] = detail.image_path;
+      //上传身份证正面照片
+      that.uploadCos(that.url.uploadCosPrivateFile, detail.image_path, 'driverAuth', function (resp) {
+        //此时的data是字符串，将其转为json格式
+        var data = JSON.parse(resp.data);
+        //身份证照片的云端URL地址
+        var path = data.path;
+        //页面持久层保存身份证云端URL地址
+        that.currentImg['idcardFront'] = path;
+
+        /*
+         * 本页面所有上传到云端的照片云端URL地址都保存到数组中，因为用户可以反复拍摄身份证
+         * 照片，那么之前上传的照片到最后应该从云端删除掉。页面提交完整实名认证信息的时候，
+         * 需要比对cosImg数组中哪些照片不需要了，让云端删除不需要的证件照片
+         */
+        that.cosImg.push(path);
+      });
+    },
+    scanIdcardBack: function scanIdcardBack(resp) {
+      var that = this;
+      var detail = resp.detail;
+      //OCR插件拍摄到的身份证背面照片存储地址
+      that.idcard.idcardBack = detail.image_path;
+      //让身份证View标签加载身份证背面照片
+      that.cardBackground[1] = detail.image_path;
+      //日期类似这种格式 “19001213-20210121” ，遂拆分取后者为过期时间
+      var validDate = detail.valid_date.text.split("-")[1];
+      that.idcard.expiration = dayjs(validDate, "YYYYMMDD").format("YYYY-MM-DD");
+      that.uploadCos(that.url.uploadCosPrivateFile, detail.image_path, "driverAuth", function (resp) {
+        var data = JSON.parse(resp.data);
+        //身份证照片的云端URL地址
+        var path = data.path;
+        //页面持久层保存身份证云端URL地址
+        that.currentImg['idcardBack'] = path;
+        that.cosImg.push(path);
+      });
+    },
+    updatePhoto: function updatePhoto(type, path) {
+      var that = this;
+      console.log("into updatePhoto method");
+      that.uploadCos(that.url.uploadCosPrivateFile, path, "driverAuth", function (resp) {
+        console.log("into uploadCos method");
+        var data = JSON.parse(resp.data);
+        var path = data.path;
+        that.cosImg.push(path);
+
+        //判断回传的照片的类型是什么
+        if (type == 'idcardHolding') {
+          console.log("into if method");
+          //手持身份证
+          that.cardBackground[2] = path;
+          that.currentImg['idcardHolding'] = data.path;
+          that.idcard.idcardHolding = data.path;
+        } else if (type == 'drcardBack') {
+          that.cardBackground[4] = path;
+          that.currentImg['drcardBack'] = data.path;
+          that.drcard.drcardBack = data.path;
+        } else if (type == 'drcardHolding') {
+          that.cardBackground[5] = path;
+          that.currentImg['drcardHolding'] = data.path;
+          that.drcard.drcardHolding = data.path;
+        }
+      });
+      console.log("uploadCos method over");
+      //强制刷新小程序视图层
+      that.$forceUpdate();
+    },
+    takePhoto: function takePhoto(type) {
+      uni.navigateTo({
+        url: "../identity_camera/identity_camera?" + type
+      });
+    },
+    scanDrcardFront: function scanDrcardFront(resp) {
+      var that = this;
+      var detail = resp.detail;
+      that.drcard.issueDate = detail.issue_date.text; //初次领证日期
+      that.drcard.carClass = detail.car_class.text; //准驾车型
+      that.drcard.validFrom = detail.valid_from.text; //驾驶证起始有效期
+      that.drcard.validTo = detail.valid_to.text; //驾驶证截止有效期
+      that.drcard.drcardFront = detail.image_path;
+      that.cardBackground[3] = detail.image_path;
+      //把驾驶证正面照片上传到云端
+      that.uploadCos(that.url.uploadCosPrivateFile, detail.image_path, 'driverAuth', function (resp) {
+        var data = JSON.parse(resp.data);
+        var path = data.path;
+        that.currentImg['drcardFront'] = path;
+        that.cosImg.push(path);
+      });
+    }
+  },
   onLoad: function onLoad(options) {
     var that = this;
     that.mode = options.mode;
