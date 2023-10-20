@@ -274,8 +274,129 @@
                     that.cosImg.push(path);
                 });
             },
-
-
+            //小程序弹窗 
+            enterContent:function(title,key){
+                let that = this;
+                uni.showModal({
+                    title:title,
+                    editable:true,
+                    content:that.contact[key],
+                    success:function(resp){
+                        if(resp.confirm){
+                            if(key == 'mailAddress'){
+                                //缩略通信地址
+                                that.contact['shortMailAddress'] = resp.content.substr(0,15) + (resp.content.length > 15 ? '...' : '')
+                            }else if (key == 'email'){
+                                //缩略Email地址
+                                that.contact['shortEmail'] = resp.content.substr(0,25) + (resp.content.length > 25 ? '...' : '')
+                            }
+                            //把编辑的数据保存到模型层的contact里面
+                            that.contact[key] = resp.content
+                        }
+                    }
+                    
+                })
+            },
+            save: function() {
+                let that = this;
+                //判断是否设置了6张照片
+                if (Object.keys(that.currentImg).length != 6) {
+                    that.$refs.uToast.show({
+                        title: '证件上传不完整',
+                        type: 'error'
+                    });
+                }
+                //执行前端验证
+                else if (
+                    that.checkValidTel(that.contact.tel, '手机号码') &&
+                    that.checkValidEmail(that.contact.email, '电子信箱') &&
+                    that.checkValidAddress(that.contact.mailAddress, '收信地址') &&
+                    that.checkValidName(that.contact.contactName, '联系人') &&
+                    that.checkValidTel(that.contact.contactTel, '联系人电话')
+                ) {
+                    uni.showModal({
+                        title: '提示信息',
+                        content: '确认提交实名资料？',
+                        success: function(resp) {
+                            if (resp.confirm) {
+                                //比较哪些照片需要删除
+                                let temp = [];
+                                let values = [];
+                                //从JSON中获取6张证件照片的云端存储地址
+                                for (let key in that.currentImg) {
+                                    let path = that.currentImg[key];
+                                    values.push(path);
+                                }
+                                //判断cosImg数组里面哪些图片的云端地址不是6张图片的，这些图片要在云端删除
+                                for (let one of that.cosImg) {
+                                    if (!values.includes(one)) {
+                                        temp.push(one);
+                                    }
+                                }
+                                if (temp.length > 0) {
+                                    //删除云端文件
+                                    that.ajax(that.url.deleteCosPrivateFile, 'POST', JSON.stringify({ pathes: temp }), function() {
+                                        console.log('文件删除成功');
+                                    });
+                                }
+                                //需要上传的实名认证数据
+                                let data = {
+                                    pid: that.idcard.pid,
+                                    name: that.idcard.name,
+                                    sex: that.idcard.sex,
+                                    birthday: that.idcard.birthday,
+                                    tel: that.contact.tel,
+                                    email: that.contact.email,
+                                    mailAddress: that.contact.mailAddress,
+                                    contactName: that.contact.contactName,
+                                    contactTel: that.contact.contactTel,
+                                    idcardAddress: that.idcard.address,
+                                    idcardFront: that.currentImg.idcardFront,
+                                    idcardBack: that.currentImg.idcardBack,
+                                    idcardHolding: that.currentImg.idcardHolding,
+                                    idcardExpiration: that.idcard.expiration,
+                                    drcardType: that.drcard.carClass,
+                                    drcardExpiration: that.drcard.validTo,
+                                    drcardIssueDate: that.drcard.issueDate,
+                                    drcardFront: that.currentImg.drcardFront,
+                                    drcardBack: that.currentImg.drcardBack,
+                                    drcardHolding: that.currentImg.drcardHolding
+                                };
+                                //提交Ajax请求，上传数据
+                                that.ajax(that.url.updateDriverAuth, 'POST', data, function(resp) {
+                                    console.log('更新成功');
+                                    that.$refs.uToast.show({
+                                        title: '资料提交成功',
+                                        type: 'success',
+                                        callback: function() {
+                                            uni.setStorageSync('realAuth', 3); //更新小程序Storage
+                                            that.realAuth = 3; //更新模型层
+                                            if (that.mode == 'create') {
+                                                //TODO 提示新注册的司机采集面部数据
+                                            }else {
+                                                //跳转到工作台页面
+                                                uni.switchTab({
+                                                    url: '../../pages/workbench/workbench'
+                                                });
+                                            }
+                                        }
+                                    });
+                                });
+                            }
+                        }
+                    });
+                }
+            },
+            //点击身份证地址窗口弹出详情
+            showAddressContent: function(){
+                if(this.idcard.address.length > 0){
+                    uni.showModal({
+                        title:'身份证地址',
+                        content:this.idcard.address,
+                        showCancel:false
+                    })
+                }
+            }
         },
 
         onLoad: function(options) {

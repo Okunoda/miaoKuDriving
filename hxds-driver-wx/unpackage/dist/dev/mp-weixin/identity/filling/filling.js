@@ -173,6 +173,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 //
 //
 //
@@ -437,6 +440,123 @@ var _default = {
         that.currentImg['drcardFront'] = path;
         that.cosImg.push(path);
       });
+    },
+    //小程序弹窗 
+    enterContent: function enterContent(title, key) {
+      var that = this;
+      uni.showModal({
+        title: title,
+        editable: true,
+        content: that.contact[key],
+        success: function success(resp) {
+          if (resp.confirm) {
+            if (key == 'mailAddress') {
+              //缩略通信地址
+              that.contact['shortMailAddress'] = resp.content.substr(0, 15) + (resp.content.length > 15 ? '...' : '');
+            } else if (key == 'email') {
+              //缩略Email地址
+              that.contact['shortEmail'] = resp.content.substr(0, 25) + (resp.content.length > 25 ? '...' : '');
+            }
+            //把编辑的数据保存到模型层的contact里面
+            that.contact[key] = resp.content;
+          }
+        }
+      });
+    },
+    save: function save() {
+      var that = this;
+      //判断是否设置了6张照片
+      if (Object.keys(that.currentImg).length != 6) {
+        that.$refs.uToast.show({
+          title: '证件上传不完整',
+          type: 'error'
+        });
+      }
+      //执行前端验证
+      else if (that.checkValidTel(that.contact.tel, '手机号码') && that.checkValidEmail(that.contact.email, '电子信箱') && that.checkValidAddress(that.contact.mailAddress, '收信地址') && that.checkValidName(that.contact.contactName, '联系人') && that.checkValidTel(that.contact.contactTel, '联系人电话')) {
+        uni.showModal({
+          title: '提示信息',
+          content: '确认提交实名资料？',
+          success: function success(resp) {
+            if (resp.confirm) {
+              //比较哪些照片需要删除
+              var temp = [];
+              var values = [];
+              //从JSON中获取6张证件照片的云端存储地址
+              for (var key in that.currentImg) {
+                var path = that.currentImg[key];
+                values.push(path);
+              }
+              //判断cosImg数组里面哪些图片的云端地址不是6张图片的，这些图片要在云端删除
+              var _iterator = _createForOfIteratorHelper(that.cosImg),
+                _step;
+              try {
+                for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                  var one = _step.value;
+                  if (!values.includes(one)) {
+                    temp.push(one);
+                  }
+                }
+              } catch (err) {
+                _iterator.e(err);
+              } finally {
+                _iterator.f();
+              }
+              if (temp.length > 0) {
+                //删除云端文件
+                that.ajax(that.url.deleteCosPrivateFile, 'POST', JSON.stringify({
+                  pathes: temp
+                }), function () {
+                  console.log('文件删除成功');
+                });
+              }
+              //需要上传的实名认证数据
+              var data = {
+                pid: that.idcard.pid,
+                name: that.idcard.name,
+                sex: that.idcard.sex,
+                birthday: that.idcard.birthday,
+                tel: that.contact.tel,
+                email: that.contact.email,
+                mailAddress: that.contact.mailAddress,
+                contactName: that.contact.contactName,
+                contactTel: that.contact.contactTel,
+                idcardAddress: that.idcard.address,
+                idcardFront: that.currentImg.idcardFront,
+                idcardBack: that.currentImg.idcardBack,
+                idcardHolding: that.currentImg.idcardHolding,
+                idcardExpiration: that.idcard.expiration,
+                drcardType: that.drcard.carClass,
+                drcardExpiration: that.drcard.validTo,
+                drcardIssueDate: that.drcard.issueDate,
+                drcardFront: that.currentImg.drcardFront,
+                drcardBack: that.currentImg.drcardBack,
+                drcardHolding: that.currentImg.drcardHolding
+              };
+              //提交Ajax请求，上传数据
+              that.ajax(that.url.updateDriverAuth, 'POST', data, function (resp) {
+                console.log('更新成功');
+                that.$refs.uToast.show({
+                  title: '资料提交成功',
+                  type: 'success',
+                  callback: function callback() {
+                    uni.setStorageSync('realAuth', 3); //更新小程序Storage
+                    that.realAuth = 3; //更新模型层
+                    if (that.mode == 'create') {
+                      //TODO 提示新注册的司机采集面部数据
+                    } else {
+                      //跳转到工作台页面
+                      uni.switchTab({
+                        url: '../../pages/workbench/workbench'
+                      });
+                    }
+                  }
+                });
+              });
+            }
+          }
+        });
+      }
     }
   },
   onLoad: function onLoad(options) {

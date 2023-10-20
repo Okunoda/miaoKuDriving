@@ -38,7 +38,8 @@ let baseUrl = "http://192.168.31.86:8201/hxds-driver"
 Vue.prototype.url = {
     registerNewDriver: `${baseUrl}/driver/registerNewDriver`,
     uploadCosPrivateFile: `${baseUrl}/cos/uploadCosPrivateFile`,
-    deleteCosPrivateFile: `${baseUrl}/cos/deleteCosPrivateFile`
+    deleteCosPrivateFile: `${baseUrl}/cos/deleteCosPrivateFile`,
+    updateDriverAuth: `${baseUrl}/driver/updateDriverAuth`
 }
 
 Vue.prototype.tencent = {
@@ -49,13 +50,13 @@ Vue.prototype.tencent = {
 }
 
 
-Vue.prototype.ajax = function (url, method, data, fun, load) {
+Vue.prototype.ajax = function(url, method, data, fun, load) {
     let timer = null
     if (load == true || load == undefined) {
         uni.showLoading({
             title: "执行中"
         })
-        timer = setTimeout(function () {
+        timer = setTimeout(function() {
             uni.hideLoading()
         }, 60 * 1000)
     }
@@ -67,7 +68,7 @@ Vue.prototype.ajax = function (url, method, data, fun, load) {
             token: uni.getStorageSync("token")
         },
         "data": data,
-        success: function (resp) {
+        success: function(resp) {
             if (load == true || load == undefined) {
                 clearTimeout(timer)
                 uni.hideLoading()
@@ -96,7 +97,7 @@ Vue.prototype.ajax = function (url, method, data, fun, load) {
                 console.error(resp.data)
             }
         },
-        fail: function (error) {
+        fail: function(error) {
             if (load == true || load == undefined) {
                 clearTimeout(timer)
                 uni.hideLoading()
@@ -106,7 +107,7 @@ Vue.prototype.ajax = function (url, method, data, fun, load) {
 }
 
 
-Vue.prototype.refreshMessage = function (that) {
+Vue.prototype.refreshMessage = function(that) {
     uni.request({
         "url": that.url.refreshMessage,
         "method": "POST",
@@ -116,7 +117,7 @@ Vue.prototype.refreshMessage = function (that) {
         "data": {
             identity: 'driver'
         },
-        success: function (resp) {
+        success: function(resp) {
 
             if (resp.statusCode == 401) {
                 uni.redirectTo({
@@ -137,7 +138,7 @@ Vue.prototype.refreshMessage = function (that) {
             }
             console.log("刷新消息")
         },
-        fail: function (error) {
+        fail: function(error) {
             //在工作台页面触发更新消息服务状态，显示服务可用或者不可用
             uni.$emit("updateMessageService", false)
         }
@@ -150,7 +151,7 @@ Vue.prototype.refreshMessage = function (that) {
  * @param {Object} module   文件路径
  * @param {Object} fun  回调函数
  */
-Vue.prototype.uploadCos = function (url, path, module, fun) {
+Vue.prototype.uploadCos = function(url, path, module, fun) {
     console.log("method into")
     uni.uploadFile({
         url: url,
@@ -162,7 +163,7 @@ Vue.prototype.uploadCos = function (url, path, module, fun) {
         formData: {
             "module": module
         },
-        success: function (resp) {
+        success: function(resp) {
             console.log("成功的回调函数生效")
             let data = JSON.parse(resp.data)
             if (resp.statusCode == 401) {
@@ -182,7 +183,7 @@ Vue.prototype.uploadCos = function (url, path, module, fun) {
     console.log("method over")
 }
 
-Vue.prototype.upload = function (url, path, data, fun) {
+Vue.prototype.upload = function(url, path, data, fun) {
     uni.uploadFile({
         url: url,
         filePath: path,
@@ -191,7 +192,7 @@ Vue.prototype.upload = function (url, path, data, fun) {
             token: uni.getStorageSync("token")
         },
         formData: data,
-        success: function (resp) {
+        success: function(resp) {
             let data = JSON.parse(resp.data)
             if (resp.statusCode == 401) {
                 uni.redirectTo({
@@ -209,14 +210,14 @@ Vue.prototype.upload = function (url, path, data, fun) {
     })
 }
 
-Vue.prototype.toPage = function (url) {
+Vue.prototype.toPage = function(url) {
     uni.navigateTo({
         url: url
     })
 }
 
 
-Vue.prototype.checkNull = function (data, name) {
+Vue.prototype.checkNull = function(data, name) {
     if (data == null) {
         this.$refs.uToast.show({
             title: name + "不能为空",
@@ -227,7 +228,7 @@ Vue.prototype.checkNull = function (data, name) {
     return false
 }
 
-Vue.prototype.checkBlank = function (data, name) {
+Vue.prototype.checkBlank = function(data, name) {
     if (data == null || data == "") {
         this.$refs.uToast.show({
             title: name + "不能为空",
@@ -238,7 +239,7 @@ Vue.prototype.checkBlank = function (data, name) {
     return false
 }
 
-Vue.prototype.checkValidName = function (data, name) {
+Vue.prototype.checkValidName = function(data, name) {
     if (data == null || data == "") {
         this.$refs.uToast.show({
             title: name + "不能为空",
@@ -254,7 +255,7 @@ Vue.prototype.checkValidName = function (data, name) {
     }
     return true
 }
-Vue.prototype.checkValidTel = function (data, name) {
+Vue.prototype.checkValidTel = function(data, name) {
     if (data == null || data == "") {
         this.$refs.uToast.show({
             title: name + "不能为空",
@@ -270,7 +271,7 @@ Vue.prototype.checkValidTel = function (data, name) {
     }
     return true
 }
-Vue.prototype.checkValidEmail = function (data, name) {
+Vue.prototype.checkValidEmail = function(data, name) {
     if (data == null || data == "") {
         this.$refs.uToast.show({
             title: name + "不能为空",
@@ -287,7 +288,7 @@ Vue.prototype.checkValidEmail = function (data, name) {
     return true
 }
 
-Vue.prototype.checkValidAddress = function (data, name) {
+Vue.prototype.checkValidAddress = function(data, name) {
 
     if (data == null || data == "") {
         this.$refs.uToast.show({
@@ -305,7 +306,7 @@ Vue.prototype.checkValidAddress = function (data, name) {
     return true
 }
 
-Vue.prototype.checkValidFee = function (data, name) {
+Vue.prototype.checkValidFee = function(data, name) {
 
     if (data == null || data == "") {
         this.$refs.uToast.show({
@@ -324,7 +325,7 @@ Vue.prototype.checkValidFee = function (data, name) {
 }
 
 
-Vue.prototype.changeNumber = function (value) {
+Vue.prototype.changeNumber = function(value) {
     let newValue = ['', ''];
     let fr = 1000;
     const ad = 1;

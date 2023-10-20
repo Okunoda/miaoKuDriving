@@ -32,7 +32,8 @@ var baseUrl = "http://192.168.31.86:8201/hxds-driver";
 _vue.default.prototype.url = {
   registerNewDriver: "".concat(baseUrl, "/driver/registerNewDriver"),
   uploadCosPrivateFile: "".concat(baseUrl, "/cos/uploadCosPrivateFile"),
-  deleteCosPrivateFile: "".concat(baseUrl, "/cos/deleteCosPrivateFile")
+  deleteCosPrivateFile: "".concat(baseUrl, "/cos/deleteCosPrivateFile"),
+  updateDriverAuth: "".concat(baseUrl, "/driver/updateDriverAuth")
 };
 _vue.default.prototype.tencent = {
   map: {
