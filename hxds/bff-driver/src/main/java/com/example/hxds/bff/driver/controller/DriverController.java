@@ -2,6 +2,7 @@ package com.example.hxds.bff.driver.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.StpUtil;
+import com.example.hxds.bff.driver.controller.form.CreateDriverModelForm;
 import com.example.hxds.bff.driver.controller.form.RegisterNewDriverForm;
 import com.example.hxds.bff.driver.controller.form.UpdateDriverAuthForm;
 import com.example.hxds.bff.driver.service.DriverService;
@@ -49,5 +50,18 @@ public class DriverController {
         form.setDriverId(loginIdAsLong);
         Integer rows = driverService.updateDriverAuth(form);
         return R.ok().put("rows",rows);
+    }
+
+
+    @PostMapping("createDriverFaceModel")
+    @SaCheckLogin
+    @Operation(summary = "创建司机人脸识别模型")
+    public R createDriverFaceModel(@RequestBody @Valid CreateDriverModelForm form) {
+        long driverId = StpUtil.getLoginIdAsLong();
+        form.setDriverId(driverId);
+
+        //请求调用创建人脸模型
+        String resultMsg = driverService.createDriverFaceModel(form);
+        return R.ok().put("result", resultMsg);
     }
 }

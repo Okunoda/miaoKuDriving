@@ -9,4 +9,6 @@ public interface DriverService {
     Long deleteDriver(Long id);
 
     Integer updateDriverAuth(Map<String, Object> form);
+
+    String createDriverFaceModel(Long driverId, String photo);
 }

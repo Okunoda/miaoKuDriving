@@ -38,6 +38,11 @@
             drcard_holding    = #{drcardHolding}
         WHERE id = #{driverId}
     </update>
+    <update id="updateDriverArchive">
+        update tb_driver
+        set archive = 1
+        where id = #{driverId}
+    </update>
 
     <delete id="deleteDriver">
         delete from tb_driver
@@ -61,5 +66,10 @@
         select cast(id as char) as id
         from tb_driver td
         where td.open_id = #{openId}
+    </select>
+    <select id="queryDriverNameAndSex" resultType="java.util.Map">
+        select td.name, td.sex
+        from tb_driver td
+        where td.id = #{driverId}
     </select>
 </mapper>

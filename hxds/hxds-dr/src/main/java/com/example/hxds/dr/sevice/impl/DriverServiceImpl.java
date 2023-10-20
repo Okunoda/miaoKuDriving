@@ -1,6 +1,7 @@
 package com.example.hxds.dr.sevice.impl;
 
 import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import com.codingapi.txlcn.tc.annotation.LcnTransaction;
 import com.example.hxds.common.exception.HxdsException;
@@ -11,7 +12,13 @@ import com.example.hxds.dr.db.dao.WalletDao;
 import com.example.hxds.dr.db.pojo.DriverSettingsEntity;
 import com.example.hxds.dr.db.pojo.WalletEntity;
 import com.example.hxds.dr.sevice.DriverService;
+import com.tencentcloudapi.common.Credential;
+import com.tencentcloudapi.common.exception.TencentCloudSDKException;
+import com.tencentcloudapi.iai.v20200303.IaiClient;
+import com.tencentcloudapi.iai.v20200303.models.CreatePersonRequest;
+import com.tencentcloudapi.iai.v20200303.models.CreatePersonResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +42,18 @@ public class DriverServiceImpl implements DriverService {
 
     @Resource
     private DriverDao driverDao;
+
+    @Value("${tencent.cloud.secretKey}")
+    private String secretKey;
+
+    @Value("${tencent.cloud.secretId}")
+    private String secretId;
+
+    @Value("${tencent.cloud.face.groupName}")
+    private String groupName;
+
+    @Value("${tencent.cloud.face.region}")
+    private String region;
 
     @LcnTransaction
     @Transactional(rollbackFor = Exception.class)
@@ -85,8 +104,8 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public Long deleteDriver(Long id) {
         Map tempParam = new HashMap<>();
-        tempParam.put("id",id);
-        if(id == null || id.equals(0L) || driverDao.hasDriver(tempParam) == 0) {
+        tempParam.put("id", id);
+        if (id == null || id.equals(0L) || driverDao.hasDriver(tempParam) == 0) {
             throw new HxdsException("id 参数不正确");
         }
 
@@ -104,5 +123,45 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public Integer updateDriverAuth(Map<String, Object> param) {
         return driverDao.updateDriverAuth(param);
+    }
+
+    @LcnTransaction
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public String createDriverFaceModel(Long driverId, String photo) {
+        //查询司机的名字和性别
+        Map<String, Object> map = driverDao.queryDriverNameAndSex(driverId);
+        String name = MapUtil.getStr(map, "name");
+        String sex = MapUtil.getStr(map, "sex");
+
+        //腾讯云创建人脸识别模型
+        Credential credential = new Credential(secretId, secretKey);
+        IaiClient client = new IaiClient(credential, region);
+        try {
+            CreatePersonRequest request = new CreatePersonRequest();
+            request.setPersonId(driverId.toString());
+            request.setGroupId(groupName);
+            long gender = "男".equals(sex) ? 1L : 2L;
+            request.setGender(gender);
+            request.setPersonName(name);
+            request.setImage(photo);
+            //照片质量等级
+            request.setQualityControl(4L);
+            //重复人员识别等级
+            request.setUniquePersonControl(4L);
+            CreatePersonResponse response = client.CreatePerson(request);
+            if (StrUtil.isNotBlank(response.getFaceId())) {
+                //更新司机表的archive字段值
+                int rows = driverDao.updateDriverArchive(driverId);
+                if (rows != 1) {
+                    return "更新司机归档字段失败";
+                }
+            }
+        } catch (TencentCloudSDKException e) {
+            log.error("创建腾讯云端司机归档失败", e);
+            return "创建腾讯云端司机归档失败";
+        }
+        //此处返回空对象的话会被自动的隐藏掉不进行传输
+        return "";
     }
 }
