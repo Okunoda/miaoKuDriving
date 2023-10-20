@@ -45,7 +45,7 @@ public class CosController {
 
         String path = null;
         if ("driverAuth".equals(module)) {
-            path = "/driver/auth";
+            path = "/driver/auth/";
         } else {
             throw new HxdsException("module值不正确");
         }
