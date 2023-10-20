@@ -39,7 +39,10 @@ Vue.prototype.url = {
     registerNewDriver: `${baseUrl}/driver/registerNewDriver`,
     uploadCosPrivateFile: `${baseUrl}/cos/uploadCosPrivateFile`,
     deleteCosPrivateFile: `${baseUrl}/cos/deleteCosPrivateFile`,
-    updateDriverAuth: `${baseUrl}/driver/updateDriverAuth`
+    updateDriverAuth: `${baseUrl}/driver/updateDriverAuth`,
+    createDriverFaceModel: `${baseUrl}/driver/createDriverFaceModel`,
+    verificateDriverFace: `${baseUrl}/driver/recognition/verificateDriverFace`
+    
 }
 
 Vue.prototype.tencent = {

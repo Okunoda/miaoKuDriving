@@ -135,7 +135,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+    /* WEBPACK VAR INJECTION */
+    (function (uni) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -180,11 +181,85 @@ var _default = {
       audio: null
     };
   },
-  methods: {},
-  onLoad: function onLoad(options) {},
-  onHide: function onHide() {}
+  methods: {
+    confirmHandle: function confirmHandle() {
+      var that = this;
+      that.audio.stop(); //停止正在播放的语音
+      var ctx = uni.createCameraContext();
+      ctx.takePhoto({
+        quality: 'high',
+        success: function success(resp) {
+          // console.log(resp.tempImagePath);
+          that.photoPath = resp.tempImagePath;
+          that.showCamera = false;
+          that.showImage = true;
+          //提交照片给后端Java项目
+          uni.getFileSystemManager().readFile({
+            filePath: that.photoPath,
+            encoding: 'base64',
+            success: function success(resp) {
+              //console.log(resp);
+              var base64 = 'data:image:/png;base64,' + resp.data;
+              var url;
+              if (that.mode == 'create') {
+                //创建司机面部模型档案
+                url = that.url.createDriverFaceModel;
+              } else {
+                //验证司机面部模型
+                url = that.url.verificateDriverFace;
+              }
+              that.ajax(url, 'POST', {
+                photo: base64
+              }, function (resp) {
+                var result = resp.data.result;
+                if (that.mode == 'create') {
+                  if (result != null && result.length > 0) {
+                    console.error(result);
+                    uni.showToast({
+                      icon: 'none',
+                      title: '面部录入失败，请重新录入'
+                    });
+                    setTimeout(function () {
+                      that.showCamera = true;
+                      that.showImage = false;
+                    }, 2000);
+                  } else {
+                    uni.showToast({
+                      title: '面部录入成功'
+                    });
+                    setTimeout(function () {
+                      uni.switchTab({
+                        url: '../../pages/workbench/workbench'
+                      });
+                    }, 2000);
+                  }
+                } else {
+                  //TODO 判断人脸识别结果
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+  },
+  onLoad: function onLoad(options) {
+    var that = this;
+    that.mode = options.mode;
+    var audio = uni.createInnerAudioContext();
+    that.audio = audio;
+    audio.src = '/static/voice/voice_5.mp3';
+    audio.play();
+  },
+  onHide: function onHide() {
+    if (this.audio != null) {
+      this.audio.stop();
+    }
+  }
 };
 exports.default = _default;
+      /* WEBPACK VAR INJECTION */
+    }.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

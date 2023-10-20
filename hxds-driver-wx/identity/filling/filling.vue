@@ -222,16 +222,13 @@
 
             updatePhoto: function(type, path) {
                 let that = this;
-                console.log("into updatePhoto method")
                 that.uploadCos(that.url.uploadCosPrivateFile, path, "driverAuth", function(resp) {
-                    console.log("into uploadCos method")
                     let data = JSON.parse(resp.data);
                     let path = data.path;
                     that.cosImg.push(path);
 
                     //判断回传的照片的类型是什么
                     if (type == 'idcardHolding') {
-                        console.log("into if method")
                         //手持身份证
                         that.cardBackground[2] = path;
                         that.currentImg['idcardHolding'] = data.path;
@@ -246,14 +243,13 @@
                         that.drcard.drcardHolding = data.path;
                     }
                 });
-                console.log("uploadCos method over")
                 //强制刷新小程序视图层
                 that.$forceUpdate()
             },
             
             takePhoto: function(type) {
                 uni.navigateTo({
-                    url: "../identity_camera/identity_camera?" + type
+                  url: "../identity_camera/identity_camera?type=" + type
                 })
             },
 
@@ -335,7 +331,7 @@
                                 }
                                 if (temp.length > 0) {
                                     //删除云端文件
-                                    that.ajax(that.url.deleteCosPrivateFile, 'POST', JSON.stringify({ pathes: temp }), function() {
+                                  that.ajax(that.url.deleteCosPrivateFile, 'POST', JSON.stringify({patches: temp}), function () {
                                         console.log('文件删除成功');
                                     });
                                 }
@@ -372,7 +368,10 @@
                                             uni.setStorageSync('realAuth', 3); //更新小程序Storage
                                             that.realAuth = 3; //更新模型层
                                             if (that.mode == 'create') {
-                                                //TODO 提示新注册的司机采集面部数据
+                                              //跳转到面部识别页面，采集人脸数据
+                                              uni.redirectTo({
+                                                url: '../face_camera/face_camera?mode=create'
+                                              });
                                             }else {
                                                 //跳转到工作台页面
                                                 uni.switchTab({
@@ -386,6 +385,8 @@
                         }
                     });
                 }
+
+
             },
             //点击身份证地址窗口弹出详情
             showAddressContent: function(){
