@@ -164,4 +164,16 @@ public class DriverServiceImpl implements DriverService {
         //此处返回空对象的话会被自动的隐藏掉不进行传输
         return "";
     }
+
+    @Override
+    public HashMap<String, Object> login(String code) {
+        String openId = microAppUtil.getOpenId(code);
+        HashMap<String, Object> map = driverDao.login(openId);
+        if (map != null && map.containsKey("archive")) {
+            Integer archiveInt = MapUtil.getInt(map, "archive");
+            boolean archive = archiveInt == 1;
+            map.put("archive", archive);
+        }
+        return map;
+    }
 }

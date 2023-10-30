@@ -72,4 +72,12 @@
         from tb_driver td
         where td.id = #{driverId}
     </select>
+    <select id="login" resultType="java.util.HashMap">
+        select cast(id as char) driverId,
+               real_auth relaAuth,
+               archive
+        from tb_driver td
+        where `status` != 2
+          and open_id = #{openId}
+    </select>
 </mapper>

@@ -1,12 +1,15 @@
 package com.example.hxds.bff.driver.feign;
 
 import com.example.hxds.bff.driver.controller.form.CreateDriverModelForm;
+import com.example.hxds.bff.driver.controller.form.LoginForm;
 import com.example.hxds.bff.driver.controller.form.RegisterNewDriverForm;
 import com.example.hxds.bff.driver.controller.form.UpdateDriverAuthForm;
 import com.example.hxds.common.util.R;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.HashMap;
 
 //FeignClient注解的value写司机子模块注册在nacos中的模块名
 @FeignClient(value="hxds-dr")
@@ -32,4 +35,7 @@ public interface DrServiceApi {
 
     @PostMapping("/driver/createDriverFaceModel")
     R createDriverFaceModel(CreateDriverModelForm form);
+
+    @PostMapping("/driver/login")
+    R login(LoginForm form);
 }

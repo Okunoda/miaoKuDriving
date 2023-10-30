@@ -1,8 +1,10 @@
 package com.example.hxds.dr.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.map.MapUtil;
 import com.example.hxds.common.util.R;
 import com.example.hxds.dr.controller.form.CreateDriverFaceModelForm;
+import com.example.hxds.dr.controller.form.LoginForm;
 import com.example.hxds.dr.controller.form.RegisterNewDriverForm;
 import com.example.hxds.dr.controller.form.UpdateDriverAuthForm;
 import com.example.hxds.dr.sevice.DriverService;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -50,5 +53,14 @@ public class DriverController {
     public R createDriverFaceModel(@RequestBody @Valid CreateDriverFaceModelForm form) {
         String msg = driverService.createDriverFaceModel(form.getDriverId(), form.getPhoto());
         return R.ok().put("msg", msg);
+    }
+
+    @PostMapping("login")
+    @Operation(summary = "司机登录")
+    public R login(@RequestBody @Valid LoginForm form) {
+        Map<String, Object> param = BeanUtil.beanToMap(form);
+        String code = MapUtil.getStr(param, "code");
+        HashMap<String, Object> login = driverService.login(code);
+        return R.ok().put("result", login);
     }
 }

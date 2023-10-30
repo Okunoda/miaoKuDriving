@@ -21,6 +21,8 @@ public interface DriverDao {
     Map<String, Object> queryDriverNameAndSex(Long driverId);
 
     int updateDriverArchive(Long driverId);
+
+    HashMap<String, Object> login(String openId);
 }
 
 

@@ -2,10 +2,13 @@ package com.example.hxds.bff.driver.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.core.map.MapUtil;
 import com.example.hxds.bff.driver.controller.form.CreateDriverModelForm;
+import com.example.hxds.bff.driver.controller.form.LoginForm;
 import com.example.hxds.bff.driver.controller.form.RegisterNewDriverForm;
 import com.example.hxds.bff.driver.controller.form.UpdateDriverAuthForm;
 import com.example.hxds.bff.driver.service.DriverService;
+import com.example.hxds.common.exception.HxdsException;
 import com.example.hxds.common.util.R;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("driver")
@@ -63,5 +67,21 @@ public class DriverController {
         //请求调用创建人脸模型
         String resultMsg = driverService.createDriverFaceModel(form);
         return R.ok().put("result", resultMsg);
+    }
+
+    @PostMapping("login")
+    @SaCheckLogin
+    @Operation(summary = "司机登录功能")
+    public R login(@RequestBody @Valid LoginForm form) {
+        HashMap<String, Object> map = driverService.login(form);
+        if (map == null) {
+            throw new HxdsException("登录失败");
+        }
+        Long driverId = MapUtil.getLong(map, "id");
+        byte realAuth = Byte.parseByte(MapUtil.getStr(map, "realAuth"));
+        Boolean archive = MapUtil.getBool(map, "archive");
+        StpUtil.login(driverId);
+        String token = StpUtil.getTokenValue();
+        return R.ok().put("token", token).put("realAuth", realAuth).put("archive", archive);
     }
 }

@@ -4,6 +4,7 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.map.MapUtil;
 import com.codingapi.txlcn.tc.annotation.LcnTransaction;
 import com.example.hxds.bff.driver.controller.form.CreateDriverModelForm;
+import com.example.hxds.bff.driver.controller.form.LoginForm;
 import com.example.hxds.bff.driver.controller.form.RegisterNewDriverForm;
 import com.example.hxds.bff.driver.controller.form.UpdateDriverAuthForm;
 import com.example.hxds.bff.driver.feign.DrServiceApi;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 
 @Service
 public class DriverServiceImpl implements DriverService {
@@ -44,5 +46,12 @@ public class DriverServiceImpl implements DriverService {
     public String createDriverFaceModel(CreateDriverModelForm form) {
         R result = drServiceApi.createDriverFaceModel(form);
         return MapUtil.getStr(result, "msg");
+    }
+
+    @Override
+    public HashMap<String, Object> login(LoginForm form) {
+        R result = drServiceApi.login(form);
+        return (HashMap<String, Object>) result.get("result");
+
     }
 }
