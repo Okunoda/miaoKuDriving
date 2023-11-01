@@ -74,7 +74,7 @@
     </select>
     <select id="login" resultType="java.util.HashMap">
         select cast(id as char) driverId,
-               real_auth relaAuth,
+               real_auth realAuth,
                archive
         from tb_driver td
         where `status` != 2

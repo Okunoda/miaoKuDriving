@@ -70,14 +70,13 @@ public class DriverController {
     }
 
     @PostMapping("login")
-    @SaCheckLogin
     @Operation(summary = "司机登录功能")
     public R login(@RequestBody @Valid LoginForm form) {
         HashMap<String, Object> map = driverService.login(form);
         if (map == null) {
             throw new HxdsException("登录失败");
         }
-        Long driverId = MapUtil.getLong(map, "id");
+        Long driverId = MapUtil.getLong(map, "driverId");
         byte realAuth = Byte.parseByte(MapUtil.getStr(map, "realAuth"));
         Boolean archive = MapUtil.getBool(map, "archive");
         StpUtil.login(driverId);
