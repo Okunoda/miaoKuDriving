@@ -41,8 +41,8 @@ Vue.prototype.url = {
     deleteCosPrivateFile: `${baseUrl}/cos/deleteCosPrivateFile`,
     updateDriverAuth: `${baseUrl}/driver/updateDriverAuth`,
     createDriverFaceModel: `${baseUrl}/driver/createDriverFaceModel`,
-    verificateDriverFace: `${baseUrl}/driver/recognition/verificateDriverFace`
-    
+    verificateDriverFace: `${baseUrl}/driver/recognition/verificateDriverFace`,
+    login: `${baseUrl}/driver/login`
 }
 
 Vue.prototype.tencent = {
