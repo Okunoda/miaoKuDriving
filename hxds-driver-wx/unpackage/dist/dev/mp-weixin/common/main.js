@@ -35,8 +35,9 @@ _vue.default.prototype.url = {
   deleteCosPrivateFile: "".concat(baseUrl, "/cos/deleteCosPrivateFile"),
   updateDriverAuth: "".concat(baseUrl, "/driver/updateDriverAuth"),
   createDriverFaceModel: "".concat(baseUrl, "/driver/createDriverFaceModel"),
-    verificateDriverFace: "".concat(baseUrl, "/driver/recognition/verificateDriverFace"),
-    login: "".concat(baseUrl, "/driver/login")
+  verificateDriverFace: "".concat(baseUrl, "/driver/recognition/verificateDriverFace"),
+  login: "".concat(baseUrl, "/driver/login"),
+  logout: "".concat(baseUrl, "/driver/logout")
 };
 _vue.default.prototype.tencent = {
   map: {

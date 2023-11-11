@@ -181,7 +181,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+        /* WEBPACK VAR INJECTION */
+        (function (uni) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -317,11 +318,40 @@ var _default = {
       appeal: 0
     };
   },
-  methods: {},
+    methods: {
+        logoutHandle: function logoutHandle() {
+            var that = this;
+            uni.vibrateShort({});
+            uni.showModal({
+                title: "提示信息",
+                content: "确认是否注销登录？",
+                success: function success(resp) {
+                    if (resp.confirm) {
+                        that.ajax(that.url.logout, 'GET', null, function (resp) {
+                            uni.removeStorage("token");
+                            uni.removeStorage("realAuth");
+                            uni.showToast({
+                                title: "已退出系统",
+                                success: function success() {
+                                    setTimeout(function () {
+                                        uni.redirectTo({
+                                            url: "../login/login"
+                                        });
+                                    }, 1500);
+                                }
+                            });
+                        });
+                    }
+                }
+            });
+        }
+    },
   onShow: function onShow() {},
   onHide: function onHide() {}
 };
 exports.default = _default;
+            /* WEBPACK VAR INJECTION */
+        }.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

@@ -42,7 +42,8 @@ Vue.prototype.url = {
     updateDriverAuth: `${baseUrl}/driver/updateDriverAuth`,
     createDriverFaceModel: `${baseUrl}/driver/createDriverFaceModel`,
     verificateDriverFace: `${baseUrl}/driver/recognition/verificateDriverFace`,
-    login: `${baseUrl}/driver/login`
+    login: `${baseUrl}/driver/login`,
+    logout: `${baseUrl}/driver/logout`
 }
 
 Vue.prototype.tencent = {

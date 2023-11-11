@@ -39,21 +39,21 @@ public class DriverController {
 
     @PostMapping("/deleteDriver")
     @Operation(summary = "删除司机相关信息")
-    public R deleteDriver( Long id){
+    public R deleteDriver(Long id) {
         Long driverId = driverService.deleteDriver(id);
         StpUtil.logout(driverId);
-        return driverId > 0 ? R.ok():R.error();
+        return driverId > 0 ? R.ok() : R.error();
     }
 
     @PostMapping("/updateDriverAuth")
     @Operation(summary = "更新司机实名信息")
     @SaCheckLogin
-    public R updateDriverAuth(@RequestBody @Valid UpdateDriverAuthForm form){
+    public R updateDriverAuth(@RequestBody @Valid UpdateDriverAuthForm form) {
         //获取当前登录用户的 id
         long loginIdAsLong = StpUtil.getLoginIdAsLong();
         form.setDriverId(loginIdAsLong);
         Integer rows = driverService.updateDriverAuth(form);
-        return R.ok().put("rows",rows);
+        return R.ok().put("rows", rows);
     }
 
 
@@ -82,5 +82,13 @@ public class DriverController {
         StpUtil.login(driverId);
         String token = StpUtil.getTokenValue();
         return R.ok().put("token", token).put("realAuth", realAuth).put("archive", archive);
+    }
+
+    @GetMapping("logout")
+    @Operation(description = "司机登录注销功能")
+    @SaCheckLogin
+    public R logout() {
+        StpUtil.logout();
+        return R.ok();
     }
 }

@@ -129,7 +129,33 @@ export default {
 		};
 	},
 	methods: {
-		
+    logoutHandle: function () {
+      let that = this;
+      uni.vibrateShort({});
+
+      uni.showModal({
+        title: "提示信息",
+        content: "确认是否注销登录？",
+        success: function (resp) {
+          if (resp.confirm) {
+            that.ajax(that.url.logout, 'GET', null, function (resp) {
+              uni.removeStorage("token");
+              uni.removeStorage("realAuth");
+              uni.showToast({
+                title: "已退出系统",
+                success: function () {
+                  setTimeout(function () {
+                    uni.redirectTo({
+                      url: "../login/login"
+                    });
+                  }, 1500);
+                }
+              });
+            });
+          }
+        }
+      });
+    }
 	},
 	onShow: function() {
 		
