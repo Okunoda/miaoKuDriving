@@ -12,6 +12,8 @@ public interface DriverSettingsDao {
     Integer insertDriverSettings(DriverSettingsEntity entity);
 
     Integer deleteDriverSettingByDriverId(Long id);
+
+    String searchDriverSettings(Long driverId);
 }
 
 

@@ -6,6 +6,7 @@ import cn.hutool.core.map.MapUtil;
 import com.codingapi.txlcn.tc.annotation.LcnTransaction;
 import com.example.hxds.bff.driver.controller.form.*;
 import com.example.hxds.bff.driver.feign.DrServiceApi;
+import com.example.hxds.bff.driver.feign.OdrServiceApi;
 import com.example.hxds.bff.driver.service.DriverService;
 import com.example.hxds.common.util.R;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ public class DriverServiceImpl implements DriverService {
 
     @Resource
     private DrServiceApi drServiceApi;
+
+    @Resource
+    private OdrServiceApi odrServiceApi;
 
     @Override
     public long registerNewDriver(RegisterNewDriverForm form) {
@@ -58,5 +62,29 @@ public class DriverServiceImpl implements DriverService {
         R result = drServiceApi.searchDriverBaseInfo(form);
         HashMap<String, Object> map = (HashMap<String, Object>) result.get("result");
         return map;
+    }
+
+    @Override
+    public HashMap<String, Object> searchWorkbenchData(Long driverId) {
+        //查询司机今日的营业数据
+        SearchDriverTodayBusinessDataForm form1 = new SearchDriverTodayBusinessDataForm();
+        form1.setDriverId(driverId);
+        R todayBusinessDataResult = odrServiceApi.searchDriverTodayBusinessData(form1);
+        HashMap todayBusinessData = (HashMap) todayBusinessDataResult.get("result");
+
+        //查询司机的基本设置
+        SearchDriverSettingsForm form2 = new SearchDriverSettingsForm();
+        form2.setDriverId(driverId);
+        R settingsResult = drServiceApi.searchDriverSettings(form2);
+        HashMap settings = (HashMap) settingsResult.get("result");
+
+        HashMap result = new HashMap(2) {
+            {
+                put("settings", settings);
+                put("business", todayBusinessData);
+            }
+        };
+
+        return result;
     }
 }

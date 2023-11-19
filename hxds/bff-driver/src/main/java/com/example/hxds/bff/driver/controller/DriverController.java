@@ -101,4 +101,13 @@ public class DriverController {
         HashMap<String, Object> result = driverService.searchDriverBaseInfo(form);
         return R.ok().put("result", result);
     }
+
+    @PostMapping("searchWorkbenchData")
+    @Operation(description = "查询司机控制台信息")
+    @SaCheckLogin
+    public R searchWorkbenchData() {
+        long driverId = StpUtil.getLoginIdAsLong();
+        HashMap<String, Object> result = driverService.searchWorkbenchData(driverId);
+        return R.ok().put("result", result);
+    }
 }

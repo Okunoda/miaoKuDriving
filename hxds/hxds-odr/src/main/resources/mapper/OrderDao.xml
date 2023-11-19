@@ -4,4 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.hxds.odr.db.dao.OrderDao">
 
+    <select id="searchDriverTodayBusinessData" resultType="java.util.HashMap">
+        select ifnull(sum(timestampdiff(HOUR, tbo.end_time, tbo.start_time)), 0) as duration,
+               cast(ifnull(sum(tbo.real_fee), 0) as char)                        as income,
+               count(tbo.id)                                                     as orders
+        from tb_order tbo
+        where tbo.driver_id = #{driverId}
+          and tbo.date = current_date
+          and tbo.status in (5, 6, 7, 8)
+    </select>
 </mapper>

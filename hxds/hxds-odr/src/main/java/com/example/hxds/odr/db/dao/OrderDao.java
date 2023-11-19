@@ -9,6 +9,7 @@ import java.util.Map;
 
 public interface OrderDao {
 
+    HashMap<String, Object> searchDriverTodayBusinessData(Long driverId);
 }
 
 

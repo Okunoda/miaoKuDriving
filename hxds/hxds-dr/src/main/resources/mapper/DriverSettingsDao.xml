@@ -13,6 +13,11 @@
         delete from tb_driver_settings
         where driver_id = #{id}
     </delete>
+    <select id="searchDriverSettings" resultType="java.lang.String">
+        select tds.settings
+        from tb_driver_settings tds
+        where tds.driver_id = #{driverId}
+    </select>
 
 
 </mapper>

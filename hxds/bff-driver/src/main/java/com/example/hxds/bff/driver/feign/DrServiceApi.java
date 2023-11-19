@@ -36,4 +36,8 @@ public interface DrServiceApi {
 
     @PostMapping("/driver/searchDriverBaseInfo")
     R searchDriverBaseInfo(SearchDriverBaseInfoForm driverId);
+
+    @PostMapping("/setting/searchDriverSettings")
+    R searchDriverSettings(SearchDriverSettingsForm form);
+
 }
