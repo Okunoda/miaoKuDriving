@@ -23,6 +23,8 @@ public interface DriverDao {
     int updateDriverArchive(Long driverId);
 
     HashMap<String, Object> login(String openId);
+
+    HashMap<String, Object> searchDriverBaseInfo(Long driverId);
 }
 
 

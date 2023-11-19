@@ -155,10 +155,89 @@ export default {
           }
         }
       });
-    }
+    },
+    serviceHandle: function () {
+      uni.vibrateShort({});
+      uni.makePhoneCall({
+        phoneNumber: '10086'
+      });
+    },
+    clearHandle: function () {
+      uni.vibrateShort({});
+      uni.showModal({
+        title: '提示消息',
+        content: '清理本地缓存',
+        success: function (resp) {
+          if (resp.confirm) {
+            uni.vibrateShort({});
+            uni.showLoading({
+              title: '执行中'
+            });
+            //删除Storage中不必要的缓存
+            let cache = uni.getStorageInfoSync();
+            for (let key of cache.keys) {
+              if (key == 'token' || key == 'realAuth') {
+                continue;
+              }
+              uni.removeStorageSync(key); //删除不必要的缓存
+              console.log('删除Storage缓存成功');
+            }
+
+            //删除保存的临时文件
+            uni.getSavedFileList({
+              success: function (resp) {
+                for (let one of resp.fileList) {
+                  let path = one.filePath;
+                  uni.removeSavedFile({
+                    filePath: path,
+                    success: function () {
+                      console.log('缓存文件删除成功');
+                    }
+                  });
+                }
+              }
+            });
+            setTimeout(function () {
+              uni.showToast({
+                title: '清理完毕'
+              });
+            }, 500);
+          }
+        }
+      });
+    },
+
 	},
 	onShow: function() {
-		
+    let that = this;
+    that.ajax(that.url.searchDriverBaseInfo, 'POST', null, function (resp) {
+      // console.log(resp.data);
+      let result = resp.data.result;
+      that.name = result.name;
+      that.photo = result.photo;
+      that.realAuth = uni.getStorageSync('realAuth') == 1;
+
+      let createTime = dayjs(result.createTime, 'YYYY-MM-DD');
+      let current = dayjs();
+
+      let years = current.diff(createTime, 'years');
+      that.years = years;
+      that.level = result.summary.level;
+      if (that.level < 10) {
+        that.levelName = '初级代驾';
+      } else if (that.level < 30) {
+        that.levelName = '中级代驾';
+      } else if (that.level < 50) {
+        that.levelName = '高级代驾';
+      } else {
+        that.levelName = '王牌代驾';
+      }
+      that.balance = result.balance;
+      that.totalOrder = result.summary.totalOrder;
+      that.weekOrder = result.summary.weekOrder;
+      that.weekComment = result.summary.weekComment;
+      that.appeal = result.summary.appeal;
+    });
 	},
 	onHide: function() {
 		

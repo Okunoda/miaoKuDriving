@@ -3,10 +3,7 @@ package com.example.hxds.dr.controller;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.map.MapUtil;
 import com.example.hxds.common.util.R;
-import com.example.hxds.dr.controller.form.CreateDriverFaceModelForm;
-import com.example.hxds.dr.controller.form.LoginForm;
-import com.example.hxds.dr.controller.form.RegisterNewDriverForm;
-import com.example.hxds.dr.controller.form.UpdateDriverAuthForm;
+import com.example.hxds.dr.controller.form.*;
 import com.example.hxds.dr.sevice.DriverService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -62,5 +59,12 @@ public class DriverController {
         String code = MapUtil.getStr(param, "code");
         HashMap<String, Object> login = driverService.login(code);
         return R.ok().put("result", login);
+    }
+
+    @PostMapping("searchDriverBaseInfo")
+    @Operation(summary = "查询司机基本信息")
+    public R searchDriverBaseInfo(@RequestBody @Valid SearchDriverBaseInfoForm form) {
+        HashMap<String, Object> result = driverService.searchDriverBaseInfo(form.getDriverId());
+        return R.ok().put("result", result);
     }
 }

@@ -37,7 +37,8 @@ _vue.default.prototype.url = {
   createDriverFaceModel: "".concat(baseUrl, "/driver/createDriverFaceModel"),
   verificateDriverFace: "".concat(baseUrl, "/driver/recognition/verificateDriverFace"),
   login: "".concat(baseUrl, "/driver/login"),
-  logout: "".concat(baseUrl, "/driver/logout")
+    logout: "".concat(baseUrl, "/driver/logout"),
+    searchDriverBaseInfo: "".concat(baseUrl, "/driver/searchDriverBaseInfo")
 };
 _vue.default.prototype.tencent = {
   map: {

@@ -80,4 +80,22 @@
         where `status` != 2
           and open_id = #{openId}
     </select>
+    <select id="searchDriverBaseInfo" resultType="java.util.HashMap">
+        select td.name,
+               td.nickname,
+               td.sex,
+               td.photo,
+               td.tel,
+               td.open_id               as openId,
+               td.email,
+               td.pid,
+               td.real_auth             as realAuth,
+               td.summary,
+               td.status,
+               cast(tw.balance as char) as balance,
+               td.create_time              createTime
+        from tb_driver td
+                 left join tb_wallet tw on tw.driver_id = td.id
+        where td.id = #{driverId}
+    </select>
 </mapper>

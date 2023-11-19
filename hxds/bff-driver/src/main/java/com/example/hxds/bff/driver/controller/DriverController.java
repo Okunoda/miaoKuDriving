@@ -2,11 +2,9 @@ package com.example.hxds.bff.driver.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.map.MapUtil;
-import com.example.hxds.bff.driver.controller.form.CreateDriverModelForm;
-import com.example.hxds.bff.driver.controller.form.LoginForm;
-import com.example.hxds.bff.driver.controller.form.RegisterNewDriverForm;
-import com.example.hxds.bff.driver.controller.form.UpdateDriverAuthForm;
+import com.example.hxds.bff.driver.controller.form.*;
 import com.example.hxds.bff.driver.service.DriverService;
 import com.example.hxds.common.exception.HxdsException;
 import com.example.hxds.common.util.R;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("driver")
@@ -90,5 +89,16 @@ public class DriverController {
     public R logout() {
         StpUtil.logout();
         return R.ok();
+    }
+
+    @PostMapping("searchDriverBaseInfo")
+    @Operation(summary = "查询司机基本信息")
+    @SaCheckLogin
+    public R searchDriverBaseInfo() {
+        long driverId = StpUtil.getLoginIdAsLong();
+        SearchDriverBaseInfoForm form = new SearchDriverBaseInfoForm();
+        form.setDriverId(driverId);
+        HashMap<String, Object> result = driverService.searchDriverBaseInfo(form);
+        return R.ok().put("result", result);
     }
 }

@@ -3,6 +3,7 @@ package com.example.hxds.dr.sevice.impl;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.codingapi.txlcn.tc.annotation.LcnTransaction;
 import com.example.hxds.common.exception.HxdsException;
 import com.example.hxds.common.util.MicroAppUtil;
@@ -174,6 +175,16 @@ public class DriverServiceImpl implements DriverService {
             boolean archive = archiveInt == 1;
             map.put("archive", archive);
         }
+        return map;
+    }
+
+    @Override
+    public HashMap<String, Object> searchDriverBaseInfo(Long driverId) {
+        HashMap<String, Object> map = driverDao.searchDriverBaseInfo(driverId);
+        //将summary字符串转换为JSON对象
+        String summary = MapUtil.getStr(map, "summary");
+        JSONObject jsonObject = JSONUtil.parseObj(summary);
+        map.replace("summary", jsonObject);
         return map;
     }
 }

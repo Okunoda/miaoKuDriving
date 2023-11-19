@@ -181,13 +181,15 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-        /* WEBPACK VAR INJECTION */
-        (function (uni) {
+/* WEBPACK VAR INJECTION */(function(uni) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 //
 //
 //
@@ -318,40 +320,135 @@ var _default = {
       appeal: 0
     };
   },
-    methods: {
-        logoutHandle: function logoutHandle() {
-            var that = this;
-            uni.vibrateShort({});
-            uni.showModal({
-                title: "提示信息",
-                content: "确认是否注销登录？",
-                success: function success(resp) {
-                    if (resp.confirm) {
-                        that.ajax(that.url.logout, 'GET', null, function (resp) {
-                            uni.removeStorage("token");
-                            uni.removeStorage("realAuth");
-                            uni.showToast({
-                                title: "已退出系统",
-                                success: function success() {
-                                    setTimeout(function () {
-                                        uni.redirectTo({
-                                            url: "../login/login"
-                                        });
-                                    }, 1500);
-                                }
-                            });
-                        });
-                    }
+  methods: {
+    logoutHandle: function logoutHandle() {
+      var that = this;
+      uni.vibrateShort({});
+      uni.showModal({
+        title: "提示信息",
+        content: "确认是否注销登录？",
+        success: function success(resp) {
+          if (resp.confirm) {
+            that.ajax(that.url.logout, 'GET', null, function (resp) {
+              uni.removeStorage("token");
+              uni.removeStorage("realAuth");
+              uni.showToast({
+                title: "已退出系统",
+                success: function success() {
+                  setTimeout(function () {
+                    uni.redirectTo({
+                      url: "../login/login"
+                    });
+                  }, 1500);
                 }
+              });
             });
+          }
         }
+      });
     },
-  onShow: function onShow() {},
+    serviceHandle: function serviceHandle() {
+      uni.vibrateShort({});
+      uni.makePhoneCall({
+        phoneNumber: '10086'
+      });
+    },
+    clearHandle: function clearHandle() {
+      uni.vibrateShort({});
+      uni.showModal({
+        title: '提示消息',
+        content: '清理本地缓存',
+        success: function success(resp) {
+          if (resp.confirm) {
+            uni.vibrateShort({});
+            uni.showLoading({
+              title: '执行中'
+            });
+            //删除Storage中不必要的缓存
+            var cache = uni.getStorageInfoSync();
+            var _iterator = _createForOfIteratorHelper(cache.keys),
+              _step;
+            try {
+              for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                var key = _step.value;
+                if (key == 'token' || key == 'realAuth') {
+                  continue;
+                }
+                uni.removeStorageSync(key); //删除不必要的缓存
+                console.log('删除Storage缓存成功');
+              }
+
+              //删除保存的临时文件
+            } catch (err) {
+              _iterator.e(err);
+            } finally {
+              _iterator.f();
+            }
+            uni.getSavedFileList({
+              success: function success(resp) {
+                var _iterator2 = _createForOfIteratorHelper(resp.fileList),
+                  _step2;
+                try {
+                  for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+                    var one = _step2.value;
+                    var path = one.filePath;
+                    uni.removeSavedFile({
+                      filePath: path,
+                      success: function success() {
+                        console.log('缓存文件删除成功');
+                      }
+                    });
+                  }
+                } catch (err) {
+                  _iterator2.e(err);
+                } finally {
+                  _iterator2.f();
+                }
+              }
+            });
+            setTimeout(function () {
+              uni.showToast({
+                title: '清理完毕'
+              });
+            }, 500);
+          }
+        }
+      });
+    }
+  },
+  onShow: function onShow() {
+    var that = this;
+    that.ajax(that.url.searchDriverBaseInfo, 'POST', null, function (resp) {
+      // console.log(resp.data);
+      var result = resp.data.result;
+      that.name = result.name;
+      that.photo = result.photo;
+      that.realAuth = uni.getStorageSync('realAuth') == 1;
+      var createTime = dayjs(result.createTime, 'YYYY-MM-DD');
+      var current = dayjs();
+      var years = current.diff(createTime, 'years');
+      that.years = years;
+      that.level = result.summary.level;
+      if (that.level < 10) {
+        that.levelName = '初级代驾';
+      } else if (that.level < 30) {
+        that.levelName = '中级代驾';
+      } else if (that.level < 50) {
+        that.levelName = '高级代驾';
+      } else {
+        that.levelName = '王牌代驾';
+      }
+      that.balance = result.balance;
+      that.totalOrder = result.summary.totalOrder;
+      that.weekOrder = result.summary.weekOrder;
+      that.weekComment = result.summary.weekComment;
+      that.appeal = result.summary.appeal;
+    });
+  },
   onHide: function onHide() {}
 };
 exports.default = _default;
-            /* WEBPACK VAR INJECTION */
-        }.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 
