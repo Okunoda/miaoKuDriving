@@ -474,9 +474,37 @@ var _default = {
       stopRecord: false
     };
   },
-  methods: {},
+  methods: {
+    changeListenService: function changeListenService(bool) {
+      if (bool) {
+        this.service.listenIcon = '../../static/workbench/service-icon-3.png';
+        this.service.listenStyle = 'color:#46B68F';
+        this.service.listenText = '收听订单';
+      } else {
+        this.service.listenIcon = '../../static/workbench/service-icon-7.png';
+        this.service.listenStyle = 'color:#FF4D4D';
+        this.service.listenText = '不听订单';
+      }
+    }
+  },
   onLoad: function onLoad() {},
-  onShow: function onShow() {},
+  onShow: function onShow() {
+    var that = this;
+    if (!that.reviewAuth) {
+      //查询控制台数据
+      that.ajax(that.url.searchWorkbenchData, 'POST', null, function (resp) {
+        var result = resp.data.result;
+        that.hour = result.business.duration;
+        that.income = result.business.income;
+        that.orders = result.business.orders;
+        var settings = result.settings;
+        uni.setStorageSync('settings', settings);
+        that.settings.listenService = settings.listenService;
+        that.settings.autoAccept = settings.autoAccept;
+        that.changeListenService(that.settings.listenService);
+      });
+    }
+  },
   onHide: function onHide() {}
 };
 exports.default = _default;

@@ -44,7 +44,8 @@ Vue.prototype.url = {
     verificateDriverFace: `${baseUrl}/driver/recognition/verificateDriverFace`,
     login: `${baseUrl}/driver/login`,
     logout: `${baseUrl}/driver/logout`,
-    searchDriverBaseInfo: `${baseUrl}/driver/searchDriverBaseInfo`
+    searchDriverBaseInfo: `${baseUrl}/driver/searchDriverBaseInfo`,
+    searchWorkbenchData:`${baseUrl}/driver/searchWorkbenchData`
 }
 
 Vue.prototype.tencent = {
