@@ -1,5 +1,6 @@
 package com.example.hxds.dr.sevice.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
@@ -7,6 +8,7 @@ import cn.hutool.json.JSONUtil;
 import com.codingapi.txlcn.tc.annotation.LcnTransaction;
 import com.example.hxds.common.exception.HxdsException;
 import com.example.hxds.common.util.MicroAppUtil;
+import com.example.hxds.common.util.PageUtils;
 import com.example.hxds.dr.db.dao.DriverDao;
 import com.example.hxds.dr.db.dao.DriverSettingsDao;
 import com.example.hxds.dr.db.dao.WalletDao;
@@ -25,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -186,5 +189,17 @@ public class DriverServiceImpl implements DriverService {
         JSONObject jsonObject = JSONUtil.parseObj(summary);
         map.replace("summary", jsonObject);
         return map;
+    }
+
+    @Override
+    public PageUtils searchDriverByPage(Map<String, Object> form) {
+        Integer start = MapUtil.getInt(form, "start");
+        Integer length = MapUtil.getInt(form, "length");
+        Long count = driverDao.searchDriverCount(form);
+        if (count.equals(0L)) {
+            return new PageUtils(null, count, start, length);
+        }
+        ArrayList<HashMap> hashMaps = driverDao.searchDriverByPage(form);
+        return new PageUtils(hashMaps, count, start, length);
     }
 }

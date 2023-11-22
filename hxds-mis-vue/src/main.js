@@ -86,7 +86,7 @@ app.config.globalProperties.$echarts = echarts //设置全局变量$echarts
 
 
 //后端项目的URL根路径
-let baseUrl = "http://你电脑的IP地址:8201/hxds-mis-api/"
+let baseUrl = "http://192.168.31.86:8201/hxds-mis-api/"
 
 app.config.globalProperties.$baseUrl = baseUrl //设置全局变量$baseUrl
 

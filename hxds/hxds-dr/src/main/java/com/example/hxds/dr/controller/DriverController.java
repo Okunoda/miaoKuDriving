@@ -2,6 +2,8 @@ package com.example.hxds.dr.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.util.PageUtil;
+import com.example.hxds.common.util.PageUtils;
 import com.example.hxds.common.util.R;
 import com.example.hxds.dr.controller.form.*;
 import com.example.hxds.dr.sevice.DriverService;
@@ -67,4 +69,16 @@ public class DriverController {
         HashMap<String, Object> result = driverService.searchDriverBaseInfo(form.getDriverId());
         return R.ok().put("result", result);
     }
+
+    @PostMapping("searchDriverByPage")
+    @Operation(summary = "分页查询司机信息")
+    public R searchDriverByPage(@RequestBody @Valid SearchDriverByPageForm form) {
+        Map<String, Object> param = BeanUtil.beanToMap(form);
+        Integer page = form.getPage();
+        Integer length = form.getLength();
+        param.put("start", (page - 1) * length);
+        PageUtils pageResult = driverService.searchDriverByPage(param);
+        return R.ok().put("result", pageResult);
+    }
+
 }

@@ -5,13 +5,13 @@
 <mapper namespace="com.example.hxds.dr.db.dao.DriverDao">
     <insert id="registerNewDriver" parameterType="Map">
         INSERT INTO tb_driver
-        SET open_id = #{openId},
-            nickname = #{nickname},
-            photo = #{photo},
+        SET open_id   = #{openId},
+            nickname  = #{nickname},
+            photo     = #{photo},
             real_auth = 1,
-            summary = '{"level":0,"totalOrder":0,"weekOrder":0,"weekComment":0,"appeal":0}',
-            archive = false,
-            `status` = 1
+            summary   = '{"level":0,"totalOrder":0,"weekOrder":0,"weekComment":0,"appeal":0}',
+            archive   = false,
+            `status`  = 1
     </insert>
     <update id="updateDriverAuth" parameterType="java.util.Map">
         UPDATE tb_driver
@@ -45,7 +45,8 @@
     </update>
 
     <delete id="deleteDriver">
-        delete from tb_driver
+        delete
+        from tb_driver
         where id = #{id}
     </delete>
 
@@ -74,7 +75,7 @@
     </select>
     <select id="login" resultType="java.util.HashMap">
         select cast(id as char) driverId,
-               real_auth realAuth,
+               real_auth        realAuth,
                archive
         from tb_driver td
         where `status` != 2
@@ -97,5 +98,64 @@
         from tb_driver td
                  left join tb_wallet tw on tw.driver_id = td.id
         where td.id = #{driverId}
+    </select>
+    <select id="searchDriverByPage" parameterType="Map" resultType="HashMap">
+        SELECT CAST(id AS CHAR) as id,
+        IFNULL(td.name,"") ,
+        IFNULL(td.sex,""),
+        IFNULL(td.pid,""),
+        IFNULL(td.tel,"") ,
+        IFNULL(td.contact_name,"") AS contactName,
+        IFNULL(td.contact_tel,"") AS contactTel,
+        IFNULL(td.real_auth,"") AS realAuth,
+        td.status,
+        DATE_FORMAT(create_time, '%Y-%m-%d') AS createTime
+        FROM tb_driver td
+        <where>
+            <if test="name!=null">
+                AND td.name = #{name}
+            </if>
+            <if test="tel!=null">
+                AND tel = #{tel}
+            </if>
+            <if test="pid!=null">
+                AND pid = #{pid}
+            </if>
+            <if test="sex!=null">
+                AND sex = #{sex}
+            </if>
+            <if test="realAuth!=null">
+                AND td.real_auth = #{realAuth}
+            </if>
+            <if test="status!=null">
+                AND td.status = #{status}
+            </if>
+        </where>
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select id="searchDriverCount" parameterType="Map" resultType="long">
+        SELECT COUNT(*)
+        FROM tb_driver td
+        <where>
+            <if test="name!=null">
+                AND td.name = #{name}
+            </if>
+            <if test="tel!=null">
+                AND tel = #{tel}
+            </if>
+            <if test="pid!=null">
+                AND pid = #{pid}
+            </if>
+            <if test="sex!=null">
+                AND sex = #{sex}
+            </if>
+            <if test="realAuth!=null">
+                AND td.real_auth = #{realAuth}
+            </if>
+            <if test="status!=null">
+                AND td.status = #{status}
+            </if>
+        </where>
     </select>
 </mapper>

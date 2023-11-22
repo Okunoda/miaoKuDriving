@@ -1,5 +1,7 @@
 package com.example.hxds.dr.sevice;
 
+import com.example.hxds.common.util.PageUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,4 +18,6 @@ public interface DriverService {
     HashMap<String, Object> login(String code);
 
     HashMap<String, Object> searchDriverBaseInfo(Long driverId);
+
+    PageUtils searchDriverByPage(Map<String, Object> form);
 }
