@@ -255,10 +255,69 @@ export default {
 		};
 	},
 	methods: {
+		loadDataList: function() {
+		    let that = this;
+		    that.dataListLoading = true;
+		    let data = {
+		        page: that.pageIndex,
+		        length: that.pageSize,
+		        name: that.dataForm.name == '' ? null : that.dataForm.name,
+		        sex: that.dataForm.sex == '' ? null : that.dataForm.sex,
+		        tel: that.dataForm.tel == '' ? null : that.dataForm.tel,
+		        pid: that.dataForm.pid == '' ? null : that.dataForm.pid,
+		        realAuth: that.dataForm.realAuth == '' ? null : that.dataForm.realAuth,
+		        status: that.dataForm.status == '' ? null : that.dataForm.status
+		    };
 		
+		    that.$http('driver/searchDriverByPage', 'POST', data, true, function(resp) {
+		        let result = resp.result;
+		        let list = result.list;
+		        let status = {
+		            '1': '正常',
+		            '2': '禁用',
+		            '3': '降低接单'
+		        };
+		        let realAuth = {
+		            '1': '未认证',
+		            '2': '已认证',
+		            '3': '审核中'
+		        };
+                if(list){
+                    for (let one of list) {
+                        one.status = status[one.status + ''];
+                        one.realAuth = realAuth[one.realAuth];
+                    }
+                    that.dataList = list;
+                    that.totalCount = Number(result.totalCount);
+                }else{
+                    that.dataList = [];
+                    that.totalCount = 0;
+                }
+		        that.dataListLoading = false;
+		    });
+		},
+        sizeChangeHandle(val) {
+            this.pageSize = val;
+            this.pageIndex = 1;
+            this.loadDataList();
+        },
+        currentChangeHandle(val) {
+            this.pageIndex = val;
+            this.loadDataList();
+        },
+        searchHandle: function() {
+            this.$refs['dataForm'].validate(valid => {
+                if (valid) {
+                    this.$refs['dataForm'].clearValidate();
+                    this.loadDataList();
+                } else {
+                    return false;
+                }
+            });
+        },
 	},
 	created: function() {
-		
+		this.loadDataList()
 	}
 };
 </script>

@@ -10,10 +10,12 @@ import com.example.hxds.mis.api.service.DriverService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * @author Okunoda 2023/11/22
@@ -29,7 +31,7 @@ public class DriverController {
     @PostMapping("/searchDriverByPage")
     @Operation(description = "分页查看司机信息")
     @SaCheckPermission(value = {"ROOT","DRIVER:SELECT"},mode = SaMode.OR)
-    public R searchDriverByPage(SearchDriverByPageForm form){
+    public R searchDriverByPage(@RequestBody @Valid SearchDriverByPageForm form){
         PageUtils result = drService.searchDriverByPage(form);
         return R.ok().put("result",result);
     }

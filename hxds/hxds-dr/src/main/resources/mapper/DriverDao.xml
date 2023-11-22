@@ -101,10 +101,10 @@
     </select>
     <select id="searchDriverByPage" parameterType="Map" resultType="HashMap">
         SELECT CAST(id AS CHAR) as id,
-        IFNULL(td.name,"") ,
-        IFNULL(td.sex,""),
-        IFNULL(td.pid,""),
-        IFNULL(td.tel,"") ,
+        IFNULL(td.name,"") name,
+        IFNULL(td.sex,"")  sex,
+        IFNULL(td.pid,"")  pid,
+        IFNULL(td.tel,"")  tel,
         IFNULL(td.contact_name,"") AS contactName,
         IFNULL(td.contact_tel,"") AS contactTel,
         IFNULL(td.real_auth,"") AS realAuth,
