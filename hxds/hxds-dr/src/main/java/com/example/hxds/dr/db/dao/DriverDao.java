@@ -31,6 +31,7 @@ public interface DriverDao {
     Long searchDriverCount(Map param);
 
 
+    HashMap<String, Object> searchDriverAuth(Long driverId);
 }
 
 

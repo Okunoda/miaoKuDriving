@@ -1,6 +1,5 @@
 package com.example.hxds.dr.sevice.impl;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
@@ -9,6 +8,7 @@ import com.codingapi.txlcn.tc.annotation.LcnTransaction;
 import com.example.hxds.common.exception.HxdsException;
 import com.example.hxds.common.util.MicroAppUtil;
 import com.example.hxds.common.util.PageUtils;
+import com.example.hxds.dr.controller.form.SearchDriverAuthForm;
 import com.example.hxds.dr.db.dao.DriverDao;
 import com.example.hxds.dr.db.dao.DriverSettingsDao;
 import com.example.hxds.dr.db.dao.WalletDao;
@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -201,5 +202,10 @@ public class DriverServiceImpl implements DriverService {
         }
         ArrayList<HashMap> hashMaps = driverDao.searchDriverByPage(form);
         return new PageUtils(hashMaps, count, start, length);
+    }
+
+    @Override
+    public HashMap<String, Object> searchDriverAuth(@Valid SearchDriverAuthForm form) {
+        return driverDao.searchDriverAuth(form.getDriverId());
     }
 }

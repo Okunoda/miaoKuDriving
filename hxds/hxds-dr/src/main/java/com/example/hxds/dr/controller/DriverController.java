@@ -81,4 +81,12 @@ public class DriverController {
         return R.ok().put("result", pageResult);
     }
 
+    @PostMapping("searchDriverAuth")
+    @Operation(summary = "查询司机实名认证信息")
+    public R searchDriverAuth(@RequestBody @Valid SearchDriverAuthForm form) {
+        HashMap<String, Object> result = driverService.searchDriverAuth(form);
+        return R.ok().put("result", result);
+    }
+
+
 }

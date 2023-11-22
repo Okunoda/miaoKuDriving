@@ -40,4 +40,7 @@ public interface DrServiceApi {
     @PostMapping("/setting/searchDriverSettings")
     R searchDriverSettings(SearchDriverSettingsForm form);
 
+    @PostMapping("/driver/searchDriverAuth")
+    R searchDriverAuth(SearchDriverAuthForm form);
+
 }

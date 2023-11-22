@@ -110,4 +110,16 @@ public class DriverController {
         HashMap<String, Object> result = driverService.searchWorkbenchData(driverId);
         return R.ok().put("result", result);
     }
+
+    @PostMapping("searchDriverAuth")
+    @Operation(description = "查询司机实名认证信息")
+    @SaCheckLogin
+    public R searchDriverAuth() {
+        long driverId = StpUtil.getLoginIdAsLong();
+        SearchDriverAuthForm form = new SearchDriverAuthForm();
+        form.setDriverId(driverId);
+        HashMap<String, Object> result = driverService.searchDriverAuth(form);
+        return R.ok().put("result", result);
+    }
+
 }
