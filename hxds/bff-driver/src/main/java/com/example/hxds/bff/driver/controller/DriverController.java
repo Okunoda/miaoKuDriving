@@ -111,7 +111,7 @@ public class DriverController {
         return R.ok().put("result", result);
     }
 
-    @PostMapping("searchDriverAuth")
+    @GetMapping("searchDriverAuth")
     @Operation(description = "查询司机实名认证信息")
     @SaCheckLogin
     public R searchDriverAuth() {

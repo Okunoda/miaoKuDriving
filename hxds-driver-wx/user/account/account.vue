@@ -111,8 +111,8 @@ export default {
 	methods: {
 		
 	},
-	onLoad: function() {
-		
+	onLoad: function(options) {
+        
 	},
 	onShow: function() {
 		

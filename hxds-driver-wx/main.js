@@ -45,7 +45,8 @@ Vue.prototype.url = {
     login: `${baseUrl}/driver/login`,
     logout: `${baseUrl}/driver/logout`,
     searchDriverBaseInfo: `${baseUrl}/driver/searchDriverBaseInfo`,
-    searchWorkbenchData:`${baseUrl}/driver/searchWorkbenchData`
+    searchWorkbenchData:`${baseUrl}/driver/searchWorkbenchData`,
+    searchDriverAuth:`${baseUrl}/driver/searchDriverAuth`
 }
 
 Vue.prototype.tencent = {

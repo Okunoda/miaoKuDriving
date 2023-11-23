@@ -403,6 +403,84 @@
         onLoad: function(options) {
             let that = this;
             that.mode = options.mode;
+            if (uni.getStorageSync('realAuth') == 1) {
+                uni.showModal({
+                    title: '提示信息',
+                    content: '新注册的代驾司机请填写实名认证信息，并且上传相关证件照片',
+                    showCancel: false
+                });
+            } else {
+                that.ajax(that.url.searchDriverAuth, 'GET', null, function(resp) {
+                    console.log(resp.data);
+                    let json = resp.data.result;
+                    // console.log(json);
+                    that.idcard.pid = json.pid;
+                    that.idcard.name = json.name;
+                    that.idcard.sex = json.sex;
+                    that.idcard.birthday = json.birthday;
+                    that.idcard.address = json.idcardAddress;
+                    that.idcard.shortAddress = json.idcardAddress.substr(0, 15) + (json.idcardAddress.length > 15 ? '...' : '');
+                    that.idcard.expiration = json.idcardExpiration;
+                    that.idcard.idcardFront = json.idcardFront;
+                    if (json.idcardFrontUrl.length > 0) {
+                        that.cardBackground[0] = json.idcardFrontUrl;
+                    }
+                    that.idcard.idcardBack = json.idcardBack;
+                    if (json.idcardBackUrl.length > 0) {
+                        that.cardBackground[1] = json.idcardBackUrl;
+                    }
+                    that.idcard.idcardHolding = json.idcardHolding;
+                    if (json.idcardHoldingUrl.length > 0) {
+                        that.cardBackground[2] = json.idcardHoldingUrl;
+                    }
+                    that.contact.tel = json.tel;
+                    that.contact.email = json.email;
+                    that.contact.shortEmail = json.email.substr(0, 25) + (json.email.length > 25 ? '...' : '');
+                    that.contact.mailAddress = json.mailAddress;
+                    that.contact.shortMailAddress = json.mailAddress.substr(0, 15) + (json.mailAddress.length > 15 ? '...' : '');
+                    that.contact.contactName = json.contactName;
+                    that.contact.contactTel = json.contactTel;
+                    that.drcard.carClass = json.drcardType;
+                    that.drcard.validTo = json.drcardExpiration;
+                    that.drcard.issueDate = json.drcardIssueDate;
+                    that.drcard.drcardFront = json.drcardFront;
+                    if (json.drcardFrontUrl.length > 0) {
+                        that.cardBackground[3] = json.drcardFrontUrl;
+                    }
+                    that.drcard.drcardBack = json.drcardBack;
+                    if (json.drcardBackUrl.length > 0) {
+                        that.cardBackground[4] = json.drcardBackUrl;
+                    }
+                    that.drcard.drcardHolding = json.drcardHolding;
+                    if (json.drcardHoldingUrl.length > 0) {
+                        that.cardBackground[5] = json.drcardHoldingUrl;
+                    }
+                    if (that.idcard.idcardFront.length > 0) {
+                        that.cosImg.push(that.idcard.idcardFront);
+                        that.currentImg['idcardFront'] = that.idcard.idcardFront;
+                    }
+                    if (that.idcard.idcardBack.length > 0) {
+                        that.cosImg.push(that.idcard.idcardBack);
+                        that.currentImg['idcardBack'] = that.idcard.idcardBack;
+                    }
+                    if (that.idcard.idcardHolding.length > 0) {
+                        that.cosImg.push(that.idcard.idcardHolding);
+                        that.currentImg['idcardHolding'] = that.idcard.idcardHolding;
+                    }
+                    if (that.drcard.drcardFront.length > 0) {
+                        that.cosImg.push(that.drcard.drcardFront);
+                        that.currentImg['drcardFront'] = that.drcard.drcardFront;
+                    }
+                    if (that.drcard.drcardBack.length > 0) {
+                        that.cosImg.push(that.drcard.drcardBack);
+                        that.currentImg['drcardBack'] = that.drcard.drcardBack;
+                    }
+                    if (that.drcard.drcardHolding.length > 0) {
+                        that.cosImg.push(that.drcard.drcardHolding);
+                        that.currentImg['drcardHolding'] = that.drcard.drcardHolding;
+                    }
+                });
+            }
         }
     }
 </script>

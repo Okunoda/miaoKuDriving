@@ -301,7 +301,7 @@ var _default = {
     };
   },
   methods: {},
-  onLoad: function onLoad() {},
+  onLoad: function onLoad(options) {},
   onShow: function onShow() {},
   onUnload: function onUnload() {},
   onHide: function onHide() {}

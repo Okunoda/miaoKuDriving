@@ -39,7 +39,8 @@ _vue.default.prototype.url = {
   login: "".concat(baseUrl, "/driver/login"),
   logout: "".concat(baseUrl, "/driver/logout"),
   searchDriverBaseInfo: "".concat(baseUrl, "/driver/searchDriverBaseInfo"),
-  searchWorkbenchData: "".concat(baseUrl, "/driver/searchWorkbenchData")
+  searchWorkbenchData: "".concat(baseUrl, "/driver/searchWorkbenchData"),
+  searchDriverAuth: "".concat(baseUrl, "/driver/searchDriverAuth")
 };
 _vue.default.prototype.tencent = {
   map: {
