@@ -63,7 +63,7 @@ public class DriverServiceImpl implements DriverService {
         map.replace("drcardFront", drcardFront);
         map.replace("drcardBack", drcardBack);
         map.replace("drcardHolding", drcardHolding);
-        result.put("result", result);
+        result.put("result", map);
         return result;
     }
 }

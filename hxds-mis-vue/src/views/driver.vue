@@ -315,6 +315,48 @@ export default {
                 }
             });
         },
+    expand: function (row, expandedRows) {
+      let that = this;
+      that.expands = [];
+      if (expandedRows.length > 0) {
+        if (row) {
+          if (row.realAuth == '未认证') {
+            return;
+          }
+          that.expands.push(row.id);
+
+          let data = {
+            realAuth: row.realAuth == '已认证' ? 2 : 3,
+            driverId: row.id
+          };
+          // console.log(data);
+          that.$http('driver/searchDriverComprehensiveData', 'POST', data, false, function (resp) {
+            //console.log(resp);
+            let summaryMap = resp.result.result;
+            that.content.year = summaryMap.year;
+            that.content.birthday = summaryMap.birthday;
+            that.content.email = summaryMap.email;
+            that.content.mailAddress = summaryMap.mailAddress;
+            that.content.idcardAddress = summaryMap.idcardAddress;
+            that.content.idcardFront = summaryMap.idcardFront;
+            that.content.idcardFrontList = [summaryMap.idcardFront];
+            that.content.idcardBack = summaryMap.idcardBack;
+            that.content.idcardBackList = [summaryMap.idcardBack];
+            that.content.idcardHolding = summaryMap.idcardHolding;
+            that.content.idcardHoldingList = [summaryMap.idcardHolding];
+            that.content.drcardFront = summaryMap.drcardFront;
+            that.content.drcardFrontList = [summaryMap.drcardFront];
+            that.content.drcardBack = summaryMap.drcardBack;
+            that.content.drcardBackList = [summaryMap.drcardBack];
+            that.content.drcardHolding = summaryMap.drcardHolding;
+            that.content.drcardHoldingList = [summaryMap.drcardHolding];
+
+            //TODO 这里以后还有代码要写
+          });
+        }
+      }
+    },
+
 	},
 	created: function() {
 		this.loadDataList()
