@@ -2,6 +2,7 @@ package com.example.hxds.dr.sevice;
 
 import com.example.hxds.common.util.PageUtils;
 import com.example.hxds.dr.controller.form.SearchDriverAuthForm;
+import com.example.hxds.dr.controller.form.SearchDriverRealSummaryForm;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -24,4 +25,6 @@ public interface DriverService {
     PageUtils searchDriverByPage(Map<String, Object> form);
 
     HashMap<String, Object> searchDriverAuth(@Valid SearchDriverAuthForm form);
+
+    HashMap<String, Object> searchDriverRealSummary(SearchDriverRealSummaryForm form);
 }

@@ -1,6 +1,8 @@
 package com.example.hxds.dr.db.dao;
 
 
+import com.example.hxds.dr.controller.form.SearchDriverRealSummaryForm;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +34,8 @@ public interface DriverDao {
 
 
     HashMap<String, Object> searchDriverAuth(Long driverId);
+
+    HashMap<String, Object> searchDriverRealSummary(SearchDriverRealSummaryForm form);
 }
 
 

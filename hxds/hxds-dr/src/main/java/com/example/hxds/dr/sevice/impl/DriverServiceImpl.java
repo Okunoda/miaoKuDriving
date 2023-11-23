@@ -9,6 +9,7 @@ import com.example.hxds.common.exception.HxdsException;
 import com.example.hxds.common.util.MicroAppUtil;
 import com.example.hxds.common.util.PageUtils;
 import com.example.hxds.dr.controller.form.SearchDriverAuthForm;
+import com.example.hxds.dr.controller.form.SearchDriverRealSummaryForm;
 import com.example.hxds.dr.db.dao.DriverDao;
 import com.example.hxds.dr.db.dao.DriverSettingsDao;
 import com.example.hxds.dr.db.dao.WalletDao;
@@ -207,5 +208,10 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public HashMap<String, Object> searchDriverAuth(@Valid SearchDriverAuthForm form) {
         return driverDao.searchDriverAuth(form.getDriverId());
+    }
+
+    @Override
+    public HashMap<String, Object> searchDriverRealSummary(SearchDriverRealSummaryForm form) {
+        return driverDao.searchDriverRealSummary(form);
     }
 }
