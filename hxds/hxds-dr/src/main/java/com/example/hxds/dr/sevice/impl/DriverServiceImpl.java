@@ -10,6 +10,7 @@ import com.example.hxds.common.util.MicroAppUtil;
 import com.example.hxds.common.util.PageUtils;
 import com.example.hxds.dr.controller.form.SearchDriverAuthForm;
 import com.example.hxds.dr.controller.form.SearchDriverRealSummaryForm;
+import com.example.hxds.dr.controller.form.UpdateDriverRealAuthForm;
 import com.example.hxds.dr.db.dao.DriverDao;
 import com.example.hxds.dr.db.dao.DriverSettingsDao;
 import com.example.hxds.dr.db.dao.WalletDao;
@@ -213,5 +214,12 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public HashMap<String, Object> searchDriverRealSummary(SearchDriverRealSummaryForm form) {
         return driverDao.searchDriverRealSummary(form);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    @LcnTransaction
+    public Integer updateDriverRealAuth(UpdateDriverRealAuthForm form) {
+        return driverDao.updateDriverRealAuth(form);
     }
 }

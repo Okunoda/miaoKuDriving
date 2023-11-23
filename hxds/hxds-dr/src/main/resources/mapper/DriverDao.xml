@@ -43,6 +43,12 @@
         set archive = 1
         where id = #{driverId}
     </update>
+    <update id="updateDriverRealAuth">
+        UPDATE tb_driver
+        SET real_auth = #{realAuth}
+        WHERE id = #{driverId}
+    </update>
+
 
     <delete id="deleteDriver">
         delete

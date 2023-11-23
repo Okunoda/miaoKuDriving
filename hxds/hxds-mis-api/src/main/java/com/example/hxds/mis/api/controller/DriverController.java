@@ -7,6 +7,7 @@ import com.example.hxds.common.util.PageUtils;
 import com.example.hxds.common.util.R;
 import com.example.hxds.mis.api.controller.form.SearchDriverByPageForm;
 import com.example.hxds.mis.api.controller.form.SearchDriverRealSummaryForm;
+import com.example.hxds.mis.api.controller.form.UpdateDriverRealAuthForm;
 import com.example.hxds.mis.api.service.DriverService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -44,5 +45,13 @@ public class DriverController {
     public R searchDriverRealSummary(@RequestBody @Valid SearchDriverRealSummaryForm form) {
         HashMap<String, Object> result = drService.searchDriverRealSummary(form);
         return R.ok().put("result", result);
+    }
+
+    @PostMapping("updateDriverRealAuth")
+    @Operation(description = "更新司机实名认证状态")
+    public R updateDriverRealAuth(@RequestBody @Valid UpdateDriverRealAuthForm form) {
+        Integer result = drService.updateDriverRealAuth(form);
+        return R.ok().put("result", result);
+
     }
 }

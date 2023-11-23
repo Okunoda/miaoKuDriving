@@ -2,14 +2,17 @@ package com.example.hxds.mis.api.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.map.MapUtil;
+import com.codingapi.txlcn.tc.annotation.LcnTransaction;
 import com.example.hxds.common.util.CosUtil;
 import com.example.hxds.common.util.PageUtils;
 import com.example.hxds.common.util.R;
 import com.example.hxds.mis.api.controller.form.SearchDriverByPageForm;
 import com.example.hxds.mis.api.controller.form.SearchDriverRealSummaryForm;
+import com.example.hxds.mis.api.controller.form.UpdateDriverRealAuthForm;
 import com.example.hxds.mis.api.feign.DriverServiceApi;
 import com.example.hxds.mis.api.service.DriverService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -65,5 +68,14 @@ public class DriverServiceImpl implements DriverService {
         map.replace("drcardHolding", drcardHolding);
         result.put("result", map);
         return result;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    @LcnTransaction
+    public Integer updateDriverRealAuth(UpdateDriverRealAuthForm form) {
+        R r = api.updateDriverRealAuth(form);
+        return Integer.valueOf(r.get("result").toString());
+
     }
 }

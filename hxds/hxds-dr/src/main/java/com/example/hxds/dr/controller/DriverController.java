@@ -95,5 +95,10 @@ public class DriverController {
         return R.ok().put("result", result);
     }
 
-
+    @PostMapping("/updateDriverRealAuth")
+    @Operation(summary = "更新司机实名认证状态")
+    public R updateDriverRealAuth(@RequestBody @Valid UpdateDriverRealAuthForm form) {
+        Integer result = driverService.updateDriverRealAuth(form);
+        return R.ok().put("result", result);
+    }
 }
