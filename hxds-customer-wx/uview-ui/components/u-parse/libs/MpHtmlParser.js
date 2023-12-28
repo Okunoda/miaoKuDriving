@@ -271,7 +271,7 @@ MpHtmlParser.prototype.setNode = function () {
                     value = value.substr(0, j) + this.getUrl(value.substr(j));
                 }
             }
-            // 转换 rpx
+            // 转换rpx
             else if (value.includes('rpx'))
                 value = value.replace(/[0-9.]+\s*rpx/g, $ => parseFloat($) * windowWidth / 750 + 'px');
             else if (key == 'white-space' && value.includes('pre') && !close)

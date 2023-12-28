@@ -24,7 +24,7 @@
 	 * @property {String} image 图片路径
 	 * @property {String} loading-img 预加载时的占位图
 	 * @property {String} error-img 图片加载出错时的占位图
-	 * @property {String} threshold 触发加载时的位置，见上方说明，单位 rpx（默认300）
+	 * @property {String} threshold 触发加载时的位置，见上方说明，单位rpx（默认300）
 	 * @property {String Number} duration 图片加载成功时，淡入淡出时间，单位ms（默认）
 	 * @property {String} effect 图片加载成功时，淡入淡出的css动画效果（默认ease-in-out）
 	 * @property {Boolean} is-effect 图片加载成功时，是否启用淡入淡出效果（默认true）

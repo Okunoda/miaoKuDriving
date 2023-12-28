@@ -30,7 +30,7 @@ export function createApp() {
 }
 
 // #endif
-let baseUrl = "http://你电脑的IP:8201/hxds-customer"
+let baseUrl = "http://192.168.31.86:8201/hxds-customer"
 
 Vue.prototype.url = {
     registerNewCustomer: `${baseUrl}/customer/registerNewCustomer`,
