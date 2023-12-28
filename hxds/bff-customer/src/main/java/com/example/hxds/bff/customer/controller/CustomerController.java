@@ -1,14 +1,13 @@
 package com.example.hxds.bff.customer.controller;
 
+import cn.dev33.satoken.stp.StpUtil;
+import com.example.hxds.bff.customer.controller.form.LoginParam;
 import com.example.hxds.bff.customer.controller.form.RegisterNewCustomerForm;
 import com.example.hxds.bff.customer.service.CustomerService;
 import com.example.hxds.common.util.R;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -29,5 +28,14 @@ public class CustomerController {
     public R registerNewCustomer(@RequestBody @Valid RegisterNewCustomerForm param) {
         Long userId = service.registerNewCustomer(param);
         return R.ok().put("userId", userId);
+    }
+
+    @PostMapping("login")
+    @Operation(description = "乘客登录")
+    public R login(@RequestBody @Valid LoginParam param) {
+        Long userId = service.login(param);
+        StpUtil.login(userId);
+        String token = StpUtil.getTokenInfo().getTokenValue();
+        return R.ok().put("token", token);
     }
 }

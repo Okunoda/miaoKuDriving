@@ -24,5 +24,11 @@
         FROM tb_customer
         WHERE open_id = #{openId}
     </select>
+    <select id="login" resultType="java.lang.Long">
+        select cast(tc.id as char ) as id
+        from tb_customer tc
+        where tc.status != 2
+            and tc.open_id = #{openId}
+    </select>
 
 </mapper>

@@ -1,5 +1,6 @@
 package com.example.hxds.bff.customer.service;
 
+import com.example.hxds.bff.customer.controller.form.LoginParam;
 import com.example.hxds.bff.customer.controller.form.RegisterNewCustomerForm;
 
 import javax.validation.Valid;
@@ -9,4 +10,6 @@ import javax.validation.Valid;
  */
 public interface CustomerService {
     Long registerNewCustomer(@Valid RegisterNewCustomerForm map);
+
+    Long login(LoginParam param);
 }

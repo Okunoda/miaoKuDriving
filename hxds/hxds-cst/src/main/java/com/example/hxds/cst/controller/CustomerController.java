@@ -1,15 +1,13 @@
 package com.example.hxds.cst.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.example.hxds.common.exception.HxdsException;
 import com.example.hxds.common.util.R;
 import com.example.hxds.cst.controller.form.RegisterNewCustomerForm;
 import com.example.hxds.cst.service.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -32,5 +30,15 @@ public class CustomerController {
         Map<String, Object> map = BeanUtil.beanToMap(param);
         String id = service.registerNewCustomer(map);
         return R.ok().put("userId", id);
+    }
+
+    @Operation(description = "乘客登录")
+    @GetMapping("login")
+    public R login(Long code) {
+        if (code == null || code.equals(0L)) {
+            throw new HxdsException("获取微信临时授权码失败！");
+        }
+        String userId = service.login(code);
+        return R.ok().put("userId", userId);
     }
 }

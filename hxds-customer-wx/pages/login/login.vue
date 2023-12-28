@@ -82,6 +82,38 @@
                     },
                 });
             },
+            login:function(){
+                let that = this;
+                uni.login({
+                    provider:'weixin',
+                    success: function(resp){
+                        let code = resp.code;
+                        let data = {
+                            code: code
+                        };
+                        that.ajax(that.url.login,'POST',data,function(resp){
+                            if(!resp.data.hasOwnProperty('token')){
+                                that.$refs.uToast.show({
+                                    title:'请先注册',
+                                    type: 'error'
+                                });
+                            }else{
+                                let token = resp.data.token;
+                                uni.setStorageSync('token',token);
+                                that.$refs.uToast.show({
+                                    title:'登录成功',
+                                    type:'success',
+                                    callback:function(){
+                                        uni.switchTab({
+                                            url:'../workbench/workbench'
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
         },
     }
 </script>

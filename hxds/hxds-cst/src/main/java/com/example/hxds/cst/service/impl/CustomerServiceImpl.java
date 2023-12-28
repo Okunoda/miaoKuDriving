@@ -40,6 +40,12 @@ public class CustomerServiceImpl implements CustomerService {
         dao.registerNewCustomer(param);
         return dao.searchCustomerId(openId);
     }
+
+    @Override
+    public String login(Long code) {
+        String openId = appUtil.getOpenId(String.valueOf(code));
+        return dao.login(openId);
+    }
 }
 
 
