@@ -2,7 +2,6 @@ package com.example.hxds.mps.service.impl;
 
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
-import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.example.hxds.common.exception.HxdsException;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Okunoda 2023/12/29
@@ -62,9 +62,29 @@ public class MapServiceImpl implements MapService {
         String mileage = new BigDecimal(distance).divide(BigDecimal.valueOf(1000)).toString();
         String minute = new BigDecimal(duration).divide(BigDecimal.valueOf(60), RoundingMode.CEILING).toString();
 
-        return new HashMap<>() {{
+        return new HashMap<>(2) {{
             put("mileage", mileage);
             put("minute", minute);
         }};
+    }
+
+    @Override
+    public HashMap calculateDrivingLine(Map<String, Object> paramMap) {
+        HttpRequest request = new HttpRequest(directionUrl);
+        request.form("from", paramMap.get("startPlaceLatitude") + "," + paramMap.get("startPlaceLongitude"))
+                .form("to", paramMap.get("endPlaceLatitude") + "," + paramMap.get("endPlaceLongitude"))
+                .form("key", key);
+        HttpResponse response = request.execute();
+        JSONObject responseBody = JSONUtil.parseObj(response.body());
+
+        String requestId = responseBody.getStr("request_id");
+        Long status = responseBody.getLong("status");
+        if (!status.equals(0L)) {
+            log.error(responseBody.getStr("message") + "此次请求id为：" + requestId);
+            throw new HxdsException(responseBody.getStr("message") + "此次请求id为：" + requestId);
+        }
+
+        JSONObject result = responseBody.getJSONObject("result");
+        return result.toBean(HashMap.class);
     }
 }

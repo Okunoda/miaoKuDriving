@@ -1,6 +1,7 @@
 package com.example.hxds.mps.service;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Okunoda 2023/12/29
@@ -11,4 +12,6 @@ public interface MapService {
                                                           String startPlaceLongitude,
                                                           String endPlaceLatitude,
                                                           String endPlaceLongitude);
+
+    HashMap calculateDrivingLine(Map<String, Object> paramMap);
 }
