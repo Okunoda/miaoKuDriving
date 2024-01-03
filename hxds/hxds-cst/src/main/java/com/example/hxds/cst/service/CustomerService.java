@@ -8,5 +8,5 @@ import java.util.Map;
 public interface CustomerService {
     String registerNewCustomer(Map param);
 
-    String login(Long code);
+    String login(String code);
 }

@@ -7,6 +7,7 @@ import com.example.hxds.cst.controller.form.RegisterNewCustomerForm;
 import com.example.hxds.cst.service.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.eclipse.jetty.util.StringUtil;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -33,9 +34,9 @@ public class CustomerController {
     }
 
     @Operation(description = "乘客登录")
-    @GetMapping("login")
-    public R login(Long code) {
-        if (code == null || code.equals(0L)) {
+    @PostMapping("login")
+    public R login(String code) {
+        if (StringUtil.isEmpty(code)) {
             throw new HxdsException("获取微信临时授权码失败！");
         }
         String userId = service.login(code);

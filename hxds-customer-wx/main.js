@@ -42,8 +42,8 @@ Vue.prototype.url = {
 
 Vue.prototype.tencent = {
     map: {
-        referer: "华夏代驾",
-        key: "腾讯位置服务密钥"
+        referer: "代驾",
+        key: "OMJBZ-S5RKQ-EUR5X-4J447-OPYUZ-PSBFN"
     }
 }
 

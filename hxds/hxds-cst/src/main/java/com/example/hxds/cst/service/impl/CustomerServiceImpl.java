@@ -42,8 +42,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public String login(Long code) {
-        String openId = appUtil.getOpenId(String.valueOf(code));
+    public String login(String code) {
+        String openId = appUtil.getOpenId(code);
         return dao.login(openId);
     }
 }

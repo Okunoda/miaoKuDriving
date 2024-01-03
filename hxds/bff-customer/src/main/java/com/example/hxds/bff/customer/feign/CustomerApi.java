@@ -15,7 +15,7 @@ public interface CustomerApi {
     @PostMapping("customer/registerNewCustomer")
     R registerNewCustomer(RegisterNewCustomerForm param);
 
-    @GetMapping("customer/login")
+    @PostMapping("customer/login")
     R login(String code);
 
 }
