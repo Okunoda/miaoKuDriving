@@ -2,6 +2,7 @@ package com.example.hxds.bff.customer.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.map.MapUtil;
+import com.example.hxds.bff.customer.controller.form.InsertCarForm;
 import com.example.hxds.bff.customer.controller.form.LoginParam;
 import com.example.hxds.bff.customer.controller.form.RegisterNewCustomerForm;
 import com.example.hxds.bff.customer.feign.CustomerApi;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * @author Okunoda 2023/12/18
@@ -38,4 +41,21 @@ public class CustomerServiceImpl implements CustomerService {
         }
         return userId;
     }
+
+    @Override
+    public Integer insertCar(InsertCarForm param) {
+        return (Integer) api.insertCar(param).get("rows");
+    }
+
+    @Override
+    public Integer deleteCar(String carId) {
+        return (Integer) api.deleteCar(carId).get("rows");
+    }
+
+    @Override
+    public ArrayList<Map<String, Object>> queryCustomerCar(String customerId) {
+        return (ArrayList<Map<String, Object>>) api.queryCustomerCar(customerId).get("result");
+    }
+
+
 }

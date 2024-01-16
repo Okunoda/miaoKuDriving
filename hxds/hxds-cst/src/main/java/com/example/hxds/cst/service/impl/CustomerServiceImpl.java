@@ -4,12 +4,14 @@ import cn.hutool.core.map.MapUtil;
 import com.codingapi.txlcn.tc.annotation.LcnTransaction;
 import com.example.hxds.common.exception.HxdsException;
 import com.example.hxds.common.util.MicroAppUtil;
+import com.example.hxds.cst.controller.form.QueryCustomerCarForm;
 import com.example.hxds.cst.db.dao.CustomerDao;
 import com.example.hxds.cst.service.CustomerService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,7 +48,21 @@ public class CustomerServiceImpl implements CustomerService {
         String openId = appUtil.getOpenId(code);
         return dao.login(openId);
     }
+
+    @Override
+    public Integer insertCar(Map<String, Object> mapParam) {
+        return dao.insertCar(mapParam);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    @LcnTransaction
+    public Integer deleteCar(String carId) {
+        return dao.deleteCar(carId);
+    }
+
+    @Override
+    public ArrayList<Map<String, Object>> queryCustomerCar(QueryCustomerCarForm param) {
+        return dao.queryCustomerCar(param);
+    }
 }
-
-
-

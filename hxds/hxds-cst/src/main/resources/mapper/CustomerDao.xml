@@ -8,6 +8,16 @@
         INSERT INTO tb_customer
         SET open_id = #{openId}, nickname = #{nickname}, sex = #{sex}, photo = #{photo}, tel = #{tel}, `status` = 1
     </insert>
+    <insert id="insertCar">
+        insert into tb_customer_car
+        set  car_plate = #{carPlate},
+             car_type = #{carType},
+             customer_id = #{customerId}
+    </insert>
+    <delete id="deleteCar">
+        delete from tb_customer_car
+        where id = #{carId}
+    </delete>
     <select id="hasCustomer" parameterType="Map" resultType="long">
         SELECT COUNT(id) AS ct
         FROM tb_customer
@@ -24,11 +34,18 @@
         FROM tb_customer
         WHERE open_id = #{openId}
     </select>
-    <select id="login" resultType="java.lang.Long">
+    <select id="login" resultType="java.lang.String">
         select cast(tc.id as char ) as id
         from tb_customer tc
         where tc.status != 2
             and tc.open_id = #{openId}
+    </select>
+    <select id="queryCustomerCar" resultType="java.util.Map">
+        select cast(tcc.id as char) as id ,
+               tcc.car_plate ,
+               tcc.car_type
+        from tb_customer_car tcc
+        where tcc.customer_id = #{customerId}
     </select>
 
 </mapper>
