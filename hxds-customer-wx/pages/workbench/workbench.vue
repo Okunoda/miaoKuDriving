@@ -96,7 +96,7 @@
                     fail: function(error) {
                         console.log("解析失败");
                         console.log(error);
-                        
+
                     }
                 });
                 console.log("坐标解析结束");
@@ -117,6 +117,30 @@
                     //TODO 跳转到创建订单页面
                 }
             }
+            onShow: function() {
+                ……
+                let location = chooseLocation.getLocation();
+                if (location != null) {
+                    let place = location.name;
+                    let latitude = location.latitude;
+                    let longitude = location.longitude;
+                    if (that.flag == 'from') {
+                        that.from.address = place;
+                        that.from.latitude = latitude;
+                        that.from.longitude = longitude;
+                    } else {
+                        that.to.address = place;
+                        that.to.latitude = latitude;
+                        that.to.longitude = longitude;
+                        //跳转到线路页面
+                        uni.setStorageSync("from", that.from)
+                        uni.setStorageSync("to", that.to)
+                        uni.navigateTo({
+                            url: `../create_order/create_order`
+                        });
+                    }
+                }
+            },
         },
         onHide: function() {
             uni.$off('updateLocation');
@@ -134,7 +158,7 @@
             that.windowHeight = windowHeight;
             that.contentStyle = `height:${that.windowHeight}px;`;
         }
-       
+
     };
 </script>
 
