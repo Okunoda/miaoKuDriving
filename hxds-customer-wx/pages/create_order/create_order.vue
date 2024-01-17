@@ -155,6 +155,11 @@
                     }
                 });
             },
+            chooseCarHandle: function() {
+                uni.navigateTo({
+                    url: '../car_list/car_list'
+                });
+            }
 
 
         },
@@ -165,6 +170,11 @@
             that.windowHeight = windowHeight;
             that.contentStyle = `height:${that.windowHeight}px;`;
 
+            if (options.hasOwnProperty('showCar')) {
+                that.showCar = options.showCar;
+                that.carId = options.carId;
+                that.carPlate = options.carPlate;
+            }
 
         },
         onShow: function() {
